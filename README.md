@@ -16,6 +16,6 @@ Steps:
 1) You create a jdbc session
 2) You make a select statement with Params (int pram with name and value)
 3) You fetch result from db
-4) Rows interface implements Iterable interface and can iterate on Map
+4) Rows interface extends Iterable interface and can iterate on Map
 .Each map represent a single column from database table
 
