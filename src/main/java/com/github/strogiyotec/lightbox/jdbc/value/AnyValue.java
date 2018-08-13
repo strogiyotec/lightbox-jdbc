@@ -53,7 +53,6 @@ public final class AnyValue implements DataValue<Object> {
         this.nam = name;
         this.val = value;
     }
-
     @Override
     public String name() {
         return this.nam;

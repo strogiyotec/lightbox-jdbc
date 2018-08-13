@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public final class DriverSession implements Session {
 
     /**
-     * Jdbv=c url
+     * Jdbc url
      */
     private final String url;
 

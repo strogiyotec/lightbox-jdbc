@@ -19,7 +19,7 @@ public final class ResultSetRows implements Rows {
             final Map<String, Object> fields = new LinkedHashMap<>(cols);
             for (int i = 1; i <= cols; ++i) {
                 fields.put(
-                        metaData.getColumnName(i).toLowerCase(),
+                        metaData.getColumnName(i),
                         resultSet.getObject(i)
                 );
             }

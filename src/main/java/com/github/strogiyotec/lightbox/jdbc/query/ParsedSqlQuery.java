@@ -3,6 +3,7 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
+import org.apache.commons.lang3.StringUtils;
 import org.jakarta.CheckedSupplier;
 import org.jakarta.ChekedBiConsumer;
 import org.jakarta.Text;
@@ -19,7 +20,7 @@ public final class ParsedSqlQuery implements Text {
     /**
      * sql pattern
      */
-    private static final Pattern SQL_PATTERN = Pattern.compile("(?<!')(:[\\w]*)(?!')");
+    private static final Pattern SQL_PATTERN = Pattern.compile("(?<!'):([\\w]*)(?!')");
     /**
      * Sql format checker
      */
@@ -60,10 +61,10 @@ public final class ParsedSqlQuery implements Text {
     }
 
     private static List<String> combineSqlMatchers(final String str) {
-        final List<String> fields = new ArrayList<>();
+        final List<String> fields = new ArrayList<>(StringUtils.countMatches(str,':'));
         final Matcher matcher = SQL_PATTERN.matcher(str);
         while (matcher.find()) {
-            fields.add(matcher.group().substring(1));
+            fields.add(matcher.group(1));
         }
         return fields;
     }
