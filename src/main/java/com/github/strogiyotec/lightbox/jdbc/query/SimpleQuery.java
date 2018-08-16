@@ -13,6 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Simple sql Query
+ */
 @AllArgsConstructor
 public final class SimpleQuery implements Query {
 

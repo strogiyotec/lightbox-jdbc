@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parse given sql
+ */
 public final class ParsedSqlQuery implements Text {
 
     /**
@@ -60,8 +63,14 @@ public final class ParsedSqlQuery implements Text {
         };
     }
 
+    /**
+     * Combine matchers from given string
+     *
+     * @param str Sql
+     * @return List of all matched patterns
+     */
     private static List<String> combineSqlMatchers(final String str) {
-        final List<String> fields = new ArrayList<>(StringUtils.countMatches(str,':'));
+        final List<String> fields = new ArrayList<>(StringUtils.countMatches(str, ':'));
         final Matcher matcher = SQL_PATTERN.matcher(str);
         while (matcher.find()) {
             fields.add(matcher.group(1));
@@ -78,6 +87,9 @@ public final class ParsedSqlQuery implements Text {
         }
     }
 
+    /**
+     * Validate given Sql
+     */
     private static final class ValidSqlFormat implements ChekedBiConsumer<DataValues, List<String>> {
 
         @Override

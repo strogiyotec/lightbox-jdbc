@@ -14,7 +14,7 @@ public final class ResultSetRows implements Rows {
     public ResultSetRows(final ResultSet resultSet) throws SQLException {
         final ResultSetMetaData metaData = resultSet.getMetaData();
         final int cols = metaData.getColumnCount();
-        final List<Map<String, Object>> rows = new ArrayList<>(cols);
+        final List<Map<String, Object>> rows = new LinkedList<>();
         while (resultSet.next()) {
             final Map<String, Object> fields = new LinkedHashMap<>(cols);
             for (int i = 1; i <= cols; ++i) {

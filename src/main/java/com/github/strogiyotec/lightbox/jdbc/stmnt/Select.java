@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Provide select statement
+ */
 @AllArgsConstructor
 public final class Select implements Statement<Rows> {
 
@@ -21,6 +24,7 @@ public final class Select implements Statement<Rows> {
      * query
      */
     private final Query query;
+
 
     @Override
     public Result<Rows> result() throws SQLException {
