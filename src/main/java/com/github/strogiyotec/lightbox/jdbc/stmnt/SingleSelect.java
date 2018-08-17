@@ -3,9 +3,9 @@ package com.github.strogiyotec.lightbox.jdbc.stmnt;
 import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
 import com.github.strogiyotec.lightbox.jdbc.Statement;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -23,14 +23,19 @@ public final class SingleSelect<T> implements Statement<T> {
     private final Class<T> type;
 
     @Override
-    public Result<T> result() throws SQLException {
-        try {
-            final Map<String, Object> value = this.origin.result().get().iterator().next();
-            return () ->
-                    this.type.cast(value.get(new ArrayList<>(value.keySet()).get(0)));
+    public Result<T> result() throws Exception {
+        final Rows result = this.origin.result().get();
+        checkRowsOnEmpty(result);
+        final Map<String, Object> value = result.iterator().next();
+        return () ->
+                this.type.cast(
+                        value.get(new ArrayList<>(value.keySet()).get(0))
+                );
+    }
 
-        } catch (final Exception e) {
-            throw new SQLException(e);
+    private static void checkRowsOnEmpty(final Rows rows){
+        if(Iterables.isEmpty(rows)){
+            throw new IllegalStateException("Sql query return empty result set");
         }
     }
 }

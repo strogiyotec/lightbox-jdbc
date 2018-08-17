@@ -13,5 +13,5 @@ public interface Statement<T> {
      * @return A Result of a type
      * @throws SQLException If fails
      */
-    Result<T> result() throws SQLException;
+    Result<T> result() throws Exception;
 }
