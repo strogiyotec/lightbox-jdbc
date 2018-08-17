@@ -19,3 +19,18 @@ Steps:
 4) Rows interface extends Iterable interface and can iterate on Map
 .Each map represent a single column from database table
 
+This is how you select single property from DB
+
+```groovy
+        final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
+        final int result = new SingleSelect<>(
+                                    new Select(
+                                            postgres,
+                                            new SimpleQuery(
+                                                "select id from movie where id = 2")
+                                            ),
+                                     Integer.class).result().get();
+        System.out.println(result);
+
+```
+
