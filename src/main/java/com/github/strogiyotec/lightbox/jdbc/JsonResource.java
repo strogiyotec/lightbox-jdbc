@@ -1,6 +1,8 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.json.*;
 import java.util.Collection;
@@ -8,73 +10,83 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-@AllArgsConstructor
+
+@ToString(of = "resource")
+@EqualsAndHashCode(of = "resource")
 public abstract class JsonResource implements JsonObject {
 
     /**
-     * Resource
+     * The JsonObject resource in question.
      */
     private final JsonObject resource;
 
-    public JsonResource(final Supplier<JsonResource> resource) {
-        this(
-                resource.get()
-        );
+    /**
+     * Ctor.
+     *
+     * @param resource Supply the JsonObject.
+     */
+    public JsonResource(final Supplier<JsonObject> resource) throws Exception{
+        this(resource.get());
+    }
+
+
+    public JsonResource(final JsonObject resource) throws Exception{
+        this.resource = resource;
     }
 
     @Override
-    public JsonArray getJsonArray(final String s) {
-        return this.resource.getJsonArray(s);
+    public JsonArray getJsonArray(final String name) {
+        return this.resource.getJsonArray(name);
     }
 
     @Override
-    public JsonObject getJsonObject(final String s) {
-        return this.resource.getJsonObject(s);
+    public JsonObject getJsonObject(final String name) {
+        return this.resource.getJsonObject(name);
     }
 
     @Override
-    public JsonNumber getJsonNumber(final String s) {
-        return this.resource.getJsonNumber(s);
+    public JsonNumber getJsonNumber(final String name) {
+        return this.resource.getJsonNumber(name);
     }
 
     @Override
-    public JsonString getJsonString(final String s) {
-        return this.resource.getJsonString(s);
+    public JsonString getJsonString(final String name) {
+        return this.resource.getJsonString(name);
     }
 
     @Override
-    public String getString(final String s) {
-        return this.resource.getString(s);
+    public String getString(final String name) {
+        return this.resource.getString(name);
     }
 
     @Override
-    public String getString(final String s, final String s1) {
-        return this.resource.getString(s, s1);
+    public String getString(final String name, final String defaultValue) {
+        return this.resource.getString(name, defaultValue);
     }
 
     @Override
-    public int getInt(final String s) {
-        return this.resource.getInt(s);
+    public int getInt(final String name) {
+        return this.resource.getInt(name);
     }
 
     @Override
-    public int getInt(final String s, final int i) {
-        return this.resource.getInt(s, i);
+    public int getInt(final String name, final int defaultValue) {
+        return this.resource.getInt(name, defaultValue);
     }
 
     @Override
-    public boolean getBoolean(final String s) {
-        return this.resource.getBoolean(s);
+    public boolean getBoolean(final String name) {
+        return this.resource.getBoolean(name);
     }
 
     @Override
-    public boolean getBoolean(final String s, final boolean b) {
-        return this.resource.getBoolean(s, b);
+    public boolean getBoolean(final String name, final boolean defaultValue) {
+        return this.resource.getBoolean(name, defaultValue);
     }
 
     @Override
-    public boolean isNull(final String s) {
-        return this.resource.isNull(s);
+    public boolean isNull(final String name) {
+        return this.resource.isNull(name);
     }
 
     @Override
@@ -118,13 +130,13 @@ public abstract class JsonResource implements JsonObject {
     }
 
     @Override
-    public void clear() {
-        this.resource.clear();
+    public void putAll(final Map<? extends String, ? extends JsonValue> map) {
+        this.resource.putAll(map);
     }
 
     @Override
-    public void putAll(final Map<? extends String, ? extends JsonValue> m) {
-        this.resource.putAll(m);
+    public void clear() {
+        this.resource.clear();
     }
 
     @Override
@@ -141,4 +153,6 @@ public abstract class JsonResource implements JsonObject {
     public Set<Entry<String, JsonValue>> entrySet() {
         return this.resource.entrySet();
     }
+
+
 }

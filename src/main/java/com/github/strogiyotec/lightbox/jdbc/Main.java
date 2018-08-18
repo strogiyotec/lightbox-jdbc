@@ -13,7 +13,7 @@ public final class Main {
 
     public static void main(final String[] args) throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final int result = new SingleSelect<>(new Select(postgres,new SimpleQuery("select site from movie where id =1")),Integer.class).result().get();
-        System.out.println(result);
+        final Select select = new Select(postgres, new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"));
+        select.result().get();
     }
 }
