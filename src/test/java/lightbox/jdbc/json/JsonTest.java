@@ -7,6 +7,7 @@ import com.github.strogiyotec.lightbox.jdbc.rows.JsonValueOf;
 import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
+import com.github.strogiyotec.lightbox.jdbc.value.IntValue;
 import lombok.AllArgsConstructor;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,11 +23,10 @@ public final class JsonTest extends Assert {
     @Test
     public void testJsonValue() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final Select select = new Select(postgres, new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"));
         final JsonObject jsonValueOf = new JsonValueOf(
                 new Select(
                         postgres,
-                        new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id")
+                        new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id where m.id = :id",new IntValue("id",1))
                 ).result().get().iterator().next()
         );
         System.out.println(jsonValueOf);
@@ -35,7 +35,6 @@ public final class JsonTest extends Assert {
     @Test
     public void testJsonValues() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final Select select = new Select(postgres, new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"));
         final JsonObject jsonValueOf = new JsonValuesOf(
                 new Select(
                         postgres,
