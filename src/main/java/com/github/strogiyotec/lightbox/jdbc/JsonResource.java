@@ -1,6 +1,5 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -11,7 +10,6 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 
-@ToString(of = "resource")
 @EqualsAndHashCode(of = "resource")
 public abstract class JsonResource implements JsonObject {
 
@@ -25,12 +23,12 @@ public abstract class JsonResource implements JsonObject {
      *
      * @param resource Supply the JsonObject.
      */
-    public JsonResource(final Supplier<JsonObject> resource) throws Exception{
+    public JsonResource(final Supplier<JsonObject> resource) {
         this(resource.get());
     }
 
 
-    public JsonResource(final JsonObject resource) throws Exception{
+    public JsonResource(final JsonObject resource) {
         this.resource = resource;
     }
 
@@ -154,5 +152,8 @@ public abstract class JsonResource implements JsonObject {
         return this.resource.entrySet();
     }
 
-
+    @Override
+    public String toString() {
+        return this.resource.toString();
+    }
 }

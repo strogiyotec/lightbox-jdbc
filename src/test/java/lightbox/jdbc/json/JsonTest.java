@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.util.Iterator;
 import java.util.List;
@@ -35,13 +36,13 @@ public final class JsonTest extends Assert {
     @Test
     public void testJsonValues() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final JsonObject jsonValueOf = new JsonValuesOf(
+        final JsonArray jsonValuesOf = new JsonValuesOf(
                 new Select(
                         postgres,
                         new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id")
-                ).result().get(),"array"
+                ).result().get()
         );
-        System.out.println(jsonValueOf);
+        System.out.println(jsonValuesOf);
     }
 
     @AllArgsConstructor

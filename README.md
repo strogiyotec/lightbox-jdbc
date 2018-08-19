@@ -56,11 +56,11 @@ If you fetch multiple rows from DB and want to convert them into JsonArray use
 
 ```groovy
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final JsonObject jsonValuesOf = new JsonValuesOf(
+        final JsonArray jsonValuesOf = new JsonValuesOf(
                 new Select(
                         postgres,
                         new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id")
-                ).result().get(),"array"
+                ).result().get()
         );
         System.out.println(jsonValuesOf);
 ```
