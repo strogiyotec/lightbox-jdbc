@@ -70,16 +70,17 @@ If you need to insert data you can use one of the following ways:
 
 ```groovy
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final Insert insert = new Insert(
-                new SimpleQuery(
-                        String.join("\n",
-                                "insert into people",
-                                "(login,paasword)",
-                                "values",
-                                "(:name,:password)"),
-                        new StringValue("name", "Almas"),
-                        new StringValue("password", "qwerty"))
-                , postgres);
+        final AffectedRowsStatement insert = new AffectedRowsStatement(
+                        postgres,
+                        new SimpleQuery(
+                                String.join("\n",
+                                        "insert into people",
+                                        "(login,paasword)",
+                                        "values",
+                                        "(:name,:password)"),
+                                new StringValue("name", "Almas"),
+                                new StringValue("password", "qwerty"))
+                        );
         final Integer res = insert.result().get();
 ```
 In this way you will receive int value which show how many rows were effected by your query or ```0``` if noone

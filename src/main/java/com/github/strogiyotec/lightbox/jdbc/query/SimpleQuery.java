@@ -6,12 +6,10 @@ import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
 import lombok.AllArgsConstructor;
 import org.jakarta.Text;
-import org.jakarta.text.SimpleText;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 /**
  * Simple sql Query
@@ -44,10 +42,8 @@ public final class SimpleQuery implements Query {
 
 
     @Override
-    public PreparedStatement prepared(final Connection connection) throws SQLException {
-        final PreparedStatement stmt = connection.prepareStatement(
-                new SimpleText(this.sql).asString()
-        );
+    public PreparedStatement prepared(final Connection connection) throws Exception {
+        final PreparedStatement stmt = connection.prepareStatement(this.sql.asString());
         this.values.prepare(stmt);
         return stmt;
     }

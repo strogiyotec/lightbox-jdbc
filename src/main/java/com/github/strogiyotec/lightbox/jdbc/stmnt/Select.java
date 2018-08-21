@@ -27,7 +27,7 @@ public final class Select implements Statement<Rows> {
 
 
     @Override
-    public Result<Rows> result() throws SQLException {
+    public Result<Rows> result() throws Exception {
         try (final Connection conn = this.session.connection()) {
             try (final PreparedStatement stmt = this.query.prepared(conn)) {
                 stmt.execute();

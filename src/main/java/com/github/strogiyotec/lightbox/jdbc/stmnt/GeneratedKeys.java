@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @AllArgsConstructor
-public final class StatementWithKeys implements Statement<Rows> {
+public final class GeneratedKeys implements Statement<Rows> {
 
     private final Query query;
 

@@ -1,9 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
-import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.SingleSelect;
 
 
 import java.sql.Connection;

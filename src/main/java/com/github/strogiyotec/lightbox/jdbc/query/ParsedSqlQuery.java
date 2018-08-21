@@ -34,17 +34,11 @@ public final class ParsedSqlQuery implements Text {
     private final CheckedSupplier<String> sql;
 
     public ParsedSqlQuery(final String text, DataValues values) {
-        this(
-                () -> text,
-                values
-        );
+        this(() -> text, values);
     }
 
     public ParsedSqlQuery(final String text, DataValue<?>... values) {
-        this(
-                () -> text,
-                new CombinedDataValues(values)
-        );
+        this(() -> text, new CombinedDataValues(values));
     }
 
     public ParsedSqlQuery(final Text text, DataValue<?>... values) {

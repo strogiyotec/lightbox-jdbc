@@ -5,15 +5,13 @@ import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
 import org.jakarta.Text;
-import org.jakarta.text.SimpleText;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 
-public final class KeyedQuery implements Query{
+public final class KeyedQuery implements Query {
 
     /**
      * Sql query
@@ -40,9 +38,9 @@ public final class KeyedQuery implements Query{
 
 
     @Override
-    public PreparedStatement prepared(final Connection connection) throws SQLException {
+    public PreparedStatement prepared(final Connection connection) throws Exception {
         final PreparedStatement stmt = connection.prepareStatement(
-                new SimpleText(this.sql).asString(), Statement.RETURN_GENERATED_KEYS
+                this.sql.asString(), Statement.RETURN_GENERATED_KEYS
         );
         this.values.prepare(stmt);
         return stmt;

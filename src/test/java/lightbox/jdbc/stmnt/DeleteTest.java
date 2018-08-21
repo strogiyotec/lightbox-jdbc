@@ -4,9 +4,8 @@ import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.KeyedQuery;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.Delete;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.DeleteWithKeys;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.StatementWithKeys;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.AffectedRowsCount;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.GeneratedKeys;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,7 +17,7 @@ public final class DeleteTest extends Assert {
     @Test
     public void testDelete() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final Delete delete = new Delete(
+        final AffectedRowsCount delete = new AffectedRowsCount(
                 postgres,
                 new SimpleQuery("delete from child where par_id =1 "));
         assertTrue(delete.result().get() != null);
@@ -27,15 +26,13 @@ public final class DeleteTest extends Assert {
     @Test
     public void testDeleteWithKeys() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final DeleteWithKeys deleteWithKeys = new DeleteWithKeys(
-                new StatementWithKeys(
-                        new KeyedQuery(
-                                "delete from child where par_id = 2 returning *")
-                        ,
-                        postgres
-                )
+        final GeneratedKeys generatedKeys = new GeneratedKeys(
+                new KeyedQuery(
+                        "delete from child where par_id = 2 returning *")
+                ,
+                postgres
         );
-        final Iterator<Map<String, Object>> iterator = deleteWithKeys.result().get().iterator();
+        final Iterator<Map<String, Object>> iterator = generatedKeys.result().get().iterator();
         boolean hasValues = false;
         while(iterator.hasNext()){
             iterator.next().forEach((k,v)-> System.out.println(k+" "+v));

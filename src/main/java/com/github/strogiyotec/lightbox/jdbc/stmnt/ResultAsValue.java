@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @AllArgsConstructor
-public final class SingleSelect<T> implements Statement<T> {
+public final class ResultAsValue<T> implements Statement<T> {
 
     /**
      * origin

@@ -11,7 +11,7 @@ public interface Query extends Text {
     /**
      * @param connection A connection to data source
      * @return A {@link PreparedStatement}
-     * @throws SQLException if failed
+     * @throws Exception if failed
      */
-    PreparedStatement prepared(Connection connection) throws SQLException;
+    PreparedStatement prepared(Connection connection) throws Exception;
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class JsonValueOf extends JsonResource {
 
-    public JsonValueOf(final Map<String, Object> rows) throws Exception {
+    public JsonValueOf(final Map<String, Object> rows) {
         super(() -> Json.createObjectBuilder(rows).build());
     }
 }
