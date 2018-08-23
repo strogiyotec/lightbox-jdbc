@@ -3,6 +3,7 @@ package com.github.strogiyotec.lightbox.jdbc.stmnt;
 import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.Statement;
+import com.github.strogiyotec.lightbox.jdbc.session.TransactionSession;
 import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public final class Transaction<T> implements Statement<T> {
      */
     private final List<Class<? extends Throwable>> exceptions;
 
-    public Transaction(final Session session,
+    public Transaction(final TransactionSession session,
                        final CheckedSupplier<T> supplier,
                        final List<Class<? extends Throwable>> exceptions) {
         this.session = session;
@@ -29,7 +30,7 @@ public final class Transaction<T> implements Statement<T> {
         this.exceptions = exceptions;
     }
 
-    public Transaction(final Session session,
+    public Transaction(final TransactionSession session,
                        final CheckedSupplier<T> supplier) {
         this(
                 session,
@@ -41,7 +42,6 @@ public final class Transaction<T> implements Statement<T> {
     @Override
     public Result<T> result() throws Exception {
         final Connection connection = this.session.connection();
-        connection.setAutoCommit(false);
         try {
             final T result = this.supplier.get();
             connection.commit();
