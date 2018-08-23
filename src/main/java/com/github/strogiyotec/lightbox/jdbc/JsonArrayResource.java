@@ -2,7 +2,6 @@ package com.github.strogiyotec.lightbox.jdbc;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.json.*;
 import java.util.Collection;
@@ -55,7 +54,7 @@ public abstract class JsonArrayResource implements JsonArray {
 
     @Override
     public String getString(final int i, final String s) {
-        return this.origin.getString(i,s);
+        return this.origin.getString(i, s);
     }
 
     @Override
@@ -65,7 +64,7 @@ public abstract class JsonArrayResource implements JsonArray {
 
     @Override
     public int getInt(final int i, final int i1) {
-        return this.origin.getInt(i,i1);
+        return this.origin.getInt(i, i1);
     }
 
     @Override
@@ -75,7 +74,7 @@ public abstract class JsonArrayResource implements JsonArray {
 
     @Override
     public boolean getBoolean(final int i, final boolean b) {
-        return this.origin.getBoolean(i,b);
+        return this.origin.getBoolean(i, b);
     }
 
     @Override
@@ -135,7 +134,7 @@ public abstract class JsonArrayResource implements JsonArray {
 
     @Override
     public boolean addAll(final int index, final Collection<? extends JsonValue> c) {
-        return this.origin.addAll(index,c);
+        return this.origin.addAll(index, c);
     }
 
     @Override
@@ -160,12 +159,12 @@ public abstract class JsonArrayResource implements JsonArray {
 
     @Override
     public JsonValue set(final int index, final JsonValue element) {
-        return this.origin.set(index,element);
+        return this.origin.set(index, element);
     }
 
     @Override
     public void add(final int index, final JsonValue element) {
-        this.origin.add(index,element);
+        this.origin.add(index, element);
     }
 
     @Override
@@ -195,7 +194,7 @@ public abstract class JsonArrayResource implements JsonArray {
 
     @Override
     public List<JsonValue> subList(final int fromIndex, final int toIndex) {
-        return this.origin.subList(fromIndex,toIndex);
+        return this.origin.subList(fromIndex, toIndex);
     }
 
     @Override

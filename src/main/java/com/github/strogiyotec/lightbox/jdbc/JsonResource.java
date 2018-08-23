@@ -1,7 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.json.*;
 import java.util.Collection;

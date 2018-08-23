@@ -51,7 +51,6 @@ public final class TransactionTest extends Assert {
                 )
         );
         try(final Connection connection = session.connection()){
-            connection.setReadOnly();
             try(final PreparedStatement st = connection.prepareStatement("insert into child (par_id) values (?)")){
                 st.setInt(1,145);
                 st.execute();

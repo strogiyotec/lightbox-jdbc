@@ -2,7 +2,6 @@ package com.github.strogiyotec.lightbox.jdbc;
 
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +22,11 @@ public final class Main {
                 "(login,paasword)",
                 "values" +
                         "(?,?)"), Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1,"ALmas");
-        statement.setString(2,"qwerty");
+        statement.setString(1, "ALmas");
+        statement.setString(2, "qwerty");
         statement.execute();
         final ResultSet generatedKeys = statement.getGeneratedKeys();
-        while(generatedKeys.next()){
+        while (generatedKeys.next()) {
             System.out.println(generatedKeys.getInt(1));
         }
     }

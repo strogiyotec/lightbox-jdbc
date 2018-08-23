@@ -1,7 +1,5 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
-import java.sql.SQLException;
-
 /**
  * Sql statement
  *

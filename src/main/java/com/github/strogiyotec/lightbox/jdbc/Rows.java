@@ -6,6 +6,6 @@ import java.util.Map;
 /**
  * Represent a set of name and values retrieved from DB
  */
-public interface Rows extends Iterable<Map<String, Object>>,Serializable {
+public interface Rows extends Iterable<Map<String, Object>>, Serializable {
 
 }
