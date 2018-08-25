@@ -37,6 +37,7 @@ public final class InsertTest extends Assert {
     public void insertWithKeys() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
         final GeneratedKeys generatedKeys = new GeneratedKeys(
+                postgres,
                 new KeyedQuery(
                         String.join("\n",
                                 "insert into people",
@@ -46,7 +47,6 @@ public final class InsertTest extends Assert {
                         new StringValue("name", "Almas"),
                         new StringValue("password", "qwerty")
                 )
-                , postgres
         );
         final Iterator<Map<String, Object>> iterator = generatedKeys.result().get().iterator();
         boolean keysArePresent = false;

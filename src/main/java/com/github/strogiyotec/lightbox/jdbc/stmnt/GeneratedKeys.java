@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 @AllArgsConstructor
 public final class GeneratedKeys implements Statement<Rows> {
 
-    private final Query query;
-
     private final Session session;
+
+    private final Query query;
 
     @Override
     public Result<Rows> result() throws Exception {

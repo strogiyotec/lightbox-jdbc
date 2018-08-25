@@ -27,10 +27,9 @@ public final class DeleteTest extends Assert {
     public void testDeleteWithKeys() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
         final GeneratedKeys generatedKeys = new GeneratedKeys(
-                new KeyedQuery(
-                        "delete from child where par_id = 2 returning *")
-                ,
-                postgres
+                postgres,
+                new KeyedQuery("delete from child where par_id = 2 returning *")
+
         );
         final Iterator<Map<String, Object>> iterator = generatedKeys.result().get().iterator();
         boolean hasValues = false;

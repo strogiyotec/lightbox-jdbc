@@ -1,6 +1,10 @@
 # lightbox-jdbc
 Here I will try to write OOP library to work with jdbc, no JPA , no ORM , only OOP ;)
 
+Code style:
+
+The project is inspired by the guidelines from the books [Elegant Objects](https://www.yegor256.com/elegant-objects.html), written by Yegor Bugayenko, and the materials from his blog
+
 How to use:
 
 This is how you do select statement using lightbox-jdbc

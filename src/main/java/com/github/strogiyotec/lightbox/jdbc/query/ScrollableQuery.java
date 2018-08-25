@@ -1,3 +1,4 @@
+/*
 package com.github.strogiyotec.lightbox.jdbc.query;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
@@ -11,40 +12,38 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-/**
- * Simple sql Query
- */
 @AllArgsConstructor
-public final class SimpleQuery implements Query {
+public final class ScrollableQuery implements Query {
 
-    /**
+    */
+/**
      * Sql query
-     */
+     *//*
+
     private final Text sql;
 
-    /**
+    */
+/**
      * Sql params
-     */
+     *//*
+
     private final DataValues values;
-    
-    public SimpleQuery(final String sql, final DataValue<?>... values) {
+
+    public ScrollableQuery(final String sql, final DataValue<?>... values) {
         this(
                 () -> sql,
                 values
         );
     }
 
-    public SimpleQuery(final Text sql, final DataValue<?>... vals) {
+    public ScrollableQuery(final Text sql, final DataValue<?>... vals) {
         this.sql = new ParsedSqlQuery(sql, vals);
         this.values = new CombinedDataValues(vals);
     }
 
-
     @Override
     public PreparedStatement prepared(final Connection connection) throws Exception {
-        final PreparedStatement stmt = connection.prepareStatement(this.sql.asString());
-        this.values.prepare(stmt);
-        return stmt;
+
     }
 
     @Override
@@ -52,3 +51,4 @@ public final class SimpleQuery implements Query {
         return this.sql.asString();
     }
 }
+*/

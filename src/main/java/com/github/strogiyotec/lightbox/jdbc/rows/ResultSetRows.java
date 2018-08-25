@@ -33,4 +33,11 @@ public final class ResultSetRows implements Rows {
     public Iterator<Map<String, Object>> iterator() {
         return this.rows.iterator();
     }
+
+    private static int resultSetSize(final ResultSet resultSet) throws SQLException {
+        resultSet.last();
+        final int row = resultSet.getRow();
+        resultSet.beforeFirst();
+        return row;
+    }
 }
