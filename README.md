@@ -132,3 +132,25 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
             iterator.next().forEach((k,v)-> System.out.println(k+" "+v));
         }
 ```
+
+Sometimes you need to fetch data that not supported by java.lang classes such as jsonB from ```Postgres```
+
+In this case you need:
+
+```groovy
+final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
+        final ResultAsCustomType<JsonObject> select = new ResultAsCustomType<>(
+                new Select(
+                        postgres,
+                        new SimpleQuery(
+                                "select info from child where par_id = :id",
+                                new IntValue("id", 228)
+                        )
+                ), new JsonType()
+        );
+        final JsonObject jsonObject = select.result().get();
+        assertThat(jsonObject.getString("name"),is("Almas"));
+```
+
+Here ```JsonType```
+ is the mapper provided by library , if you need another type just create a ```Function``` to map object into your type
