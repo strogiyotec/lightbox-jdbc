@@ -30,7 +30,7 @@ public final class DriverSession implements Session {
     private final transient String password;
 
     @Override
-    public Connection connection() throws SQLException {
+    public Connection connection() throws Exception {
         return DriverManager.getConnection(
                 this.url,
                 this.userName,

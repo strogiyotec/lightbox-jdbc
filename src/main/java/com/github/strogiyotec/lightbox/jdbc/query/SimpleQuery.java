@@ -5,6 +5,7 @@ import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 import org.jakarta.Text;
 
 import java.io.IOException;

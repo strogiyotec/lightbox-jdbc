@@ -6,8 +6,10 @@ import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsCustomType;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsValue;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
+import com.github.strogiyotec.lightbox.jdbc.types.IntArrayType;
 import com.github.strogiyotec.lightbox.jdbc.types.JsonType;
 import com.github.strogiyotec.lightbox.jdbc.value.IntValue;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -31,5 +33,20 @@ public final class ResultAsCustomTypeTest extends Assert{
         );
         final JsonObject jsonObject = select.result().get();
         assertThat(jsonObject.getString("name"),is("Almas"));
+    }
+    @Test
+    public void fetchIntArray() throws Exception{
+        final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
+        final ResultAsCustomType<int[]> select = new ResultAsCustomType<>(
+                new Select(
+                        postgres,
+                        new SimpleQuery(
+                                "select images from child where id = :id",
+                                new IntValue("id", 60)
+                        )
+                ), new IntArrayType()
+        );
+
+        assertTrue(select.result().get().length > 0);
     }
 }

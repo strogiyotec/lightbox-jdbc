@@ -21,7 +21,7 @@ public final class ConfigurableSession implements Session {
     private final JsonObject configuration;
 
     @Override
-    public Connection connection() throws SQLException {
+    public Connection connection() throws Exception {
         final Connection connection = this.origin.connection();
         connection.setReadOnly(this.configuration.getBoolean("readOnly", false));
         connection.setAutoCommit(this.configuration.getBoolean("autoCommit", false));

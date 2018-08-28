@@ -3,7 +3,7 @@ package com.github.strogiyotec.lightbox.jdbc.stmnt;
 import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.Statement;
-import com.github.strogiyotec.lightbox.jdbc.session.TransactionSession;
+import com.github.strogiyotec.lightbox.jdbc.session.TransactedSession;
 import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
@@ -16,13 +16,12 @@ public final class Transaction<T> implements Statement<T> {
 
     private final CheckedSupplier<T> supplier;
 
-
     /**
      * List of supported exceptions for rollback
      */
     private final List<Class<? extends Throwable>> exceptions;
 
-    public Transaction(final TransactionSession session,
+    public Transaction(final TransactedSession session,
                        final CheckedSupplier<T> supplier,
                        final List<Class<? extends Throwable>> exceptions) {
         this.session = session;
@@ -30,7 +29,7 @@ public final class Transaction<T> implements Statement<T> {
         this.exceptions = exceptions;
     }
 
-    public Transaction(final TransactionSession session,
+    public Transaction(final TransactedSession session,
                        final CheckedSupplier<T> supplier) {
         this(
                 session,
@@ -49,6 +48,8 @@ public final class Transaction<T> implements Statement<T> {
         } catch (final Exception exc) {
             if (this.support(exc)) {
                 connection.rollback();
+            } else {
+                connection.commit();
             }
             throw exc;
         }

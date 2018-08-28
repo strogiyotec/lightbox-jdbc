@@ -3,6 +3,7 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.jakarta.CheckedSupplier;
 import org.jakarta.ChekedBiConsumer;

@@ -13,7 +13,7 @@ public interface Session {
      * Create a {@link Connection}
      *
      * @return {@link Connection}
-     * @throws SQLException if fails
+     * @throws Exception if fails
      */
-    Connection connection() throws SQLException;
+    Connection connection() throws Exception;
 }

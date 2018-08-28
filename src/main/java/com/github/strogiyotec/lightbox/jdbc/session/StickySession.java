@@ -27,7 +27,7 @@ public final class StickySession implements Session {
     }
 
     @Override
-    public Connection connection() throws SQLException {
+    public Connection connection() throws Exception {
         return this.connection;
     }
 }

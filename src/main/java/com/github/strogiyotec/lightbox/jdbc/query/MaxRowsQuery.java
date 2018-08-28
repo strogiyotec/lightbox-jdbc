@@ -2,6 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.sql.Connection;
