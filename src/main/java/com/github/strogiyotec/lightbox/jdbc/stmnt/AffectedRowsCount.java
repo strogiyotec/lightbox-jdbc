@@ -10,6 +10,10 @@ import lombok.ToString;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+/**
+ * This class represent amount of rows in DB which were affected
+ * by this statement
+ */
 @AllArgsConstructor
 @ToString(of = "query")
 public final class AffectedRowsCount implements Statement<Integer> {

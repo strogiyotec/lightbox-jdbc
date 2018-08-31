@@ -21,20 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Double val.
+ * Decimal val.
  *
  * @since 0.1
  */
-public final class DoubleValue implements DataValue<Double> {
+public final class DecimalValue implements DataValue<BigDecimal> {
     /**
      * Name.
      */
@@ -43,15 +44,25 @@ public final class DoubleValue implements DataValue<Double> {
     /**
      * Value.
      */
-    private final Double val;
+    private final BigDecimal val;
 
     /**
      * Ctor.
      *
      * @param name  The name
-     * @param value The val
+     * @param value The value
      */
-    public DoubleValue(final String name, final Double value) {
+    public DecimalValue(final String name, final String value) {
+        this(name, new BigDecimal(value));
+    }
+
+    /**
+     * Ctor.
+     *
+     * @param name  The name
+     * @param value The value
+     */
+    public DecimalValue(final String name, final BigDecimal value) {
         this.nam = name;
         this.val = value;
     }
@@ -62,7 +73,7 @@ public final class DoubleValue implements DataValue<Double> {
     }
 
     @Override
-    public Double get() {
+    public BigDecimal get() {
         return this.val;
     }
 
@@ -71,7 +82,7 @@ public final class DoubleValue implements DataValue<Double> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setDouble(index, this.val);
+        stmt.setBigDecimal(index, this.val);
     }
 
     @Override

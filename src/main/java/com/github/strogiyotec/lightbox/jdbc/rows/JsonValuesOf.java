@@ -1,6 +1,5 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
-import com.github.strogiyotec.lightbox.jdbc.JsonArrayResource;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
 
 import javax.json.Json;

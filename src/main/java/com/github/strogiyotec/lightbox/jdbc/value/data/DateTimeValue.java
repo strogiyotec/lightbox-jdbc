@@ -21,18 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
- * Any val.
+ * DateTime val.
+ *
+ * @since 0.1
  */
-public final class AnyValue implements DataValue<Object> {
+public final class DateTimeValue implements DataValue<LocalDateTime> {
     /**
      * Name.
      */
@@ -41,7 +45,7 @@ public final class AnyValue implements DataValue<Object> {
     /**
      * Value.
      */
-    private final Object val;
+    private final LocalDateTime val;
 
     /**
      * Ctor.
@@ -49,7 +53,7 @@ public final class AnyValue implements DataValue<Object> {
      * @param name  The name
      * @param value The value
      */
-    public AnyValue(final String name, final Object value) {
+    public DateTimeValue(final String name, final LocalDateTime value) {
         this.nam = name;
         this.val = value;
     }
@@ -60,7 +64,7 @@ public final class AnyValue implements DataValue<Object> {
     }
 
     @Override
-    public Object get() {
+    public LocalDateTime get() {
         return this.val;
     }
 
@@ -69,7 +73,7 @@ public final class AnyValue implements DataValue<Object> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setObject(index, this.val);
+        stmt.setTimestamp(index, Timestamp.valueOf(this.val));
     }
 
     @Override

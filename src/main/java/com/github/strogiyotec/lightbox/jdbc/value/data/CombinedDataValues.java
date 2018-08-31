@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 import com.github.strogiyotec.lightbox.jdbc.DataValues;

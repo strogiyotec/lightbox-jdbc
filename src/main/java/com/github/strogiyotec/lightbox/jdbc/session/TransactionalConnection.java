@@ -1,6 +1,9 @@
-package com.github.strogiyotec.lightbox.jdbc.connection;
+package com.github.strogiyotec.lightbox.jdbc.session;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.Map;
@@ -8,10 +11,16 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
+/**
+ * Represent a connection which is closed only when {@link #origin} is commit or rollback
+ * Package friendly to avoid usage without transaction
+ */
 @AllArgsConstructor
-public final class TransactionalConnection implements Connection {
+final class TransactionalConnection implements Connection {
 
     private final Connection origin;
+
+    private static Logger logger = LogManager.getLogger(TransactionalConnection.class);
 
     public TransactionalConnection(final Supplier<Connection> origin) {
         this(
@@ -305,5 +314,17 @@ public final class TransactionalConnection implements Connection {
     @Override
     public boolean isWrapperFor(final Class<?> iface) throws SQLException {
         return this.origin.isWrapperFor(iface);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try{
+            if(!this.origin.isClosed()){
+                logger.warn("You don't close connection {} use commit or rollback to close it",this.origin);
+            }
+        }finally {
+            super.finalize();
+        }
+
     }
 }

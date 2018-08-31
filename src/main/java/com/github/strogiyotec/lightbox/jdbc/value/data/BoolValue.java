@@ -21,22 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
- * DateTime val.
- *
- * @since 0.1
+ * Boolean val.
  */
-public final class DateTimeValue implements DataValue<LocalDateTime> {
+public final class BoolValue implements DataValue<Boolean> {
     /**
      * Name.
      */
@@ -45,7 +41,7 @@ public final class DateTimeValue implements DataValue<LocalDateTime> {
     /**
      * Value.
      */
-    private final LocalDateTime val;
+    private final Boolean val;
 
     /**
      * Ctor.
@@ -53,7 +49,7 @@ public final class DateTimeValue implements DataValue<LocalDateTime> {
      * @param name  The name
      * @param value The value
      */
-    public DateTimeValue(final String name, final LocalDateTime value) {
+    public BoolValue(final String name, final Boolean value) {
         this.nam = name;
         this.val = value;
     }
@@ -64,7 +60,7 @@ public final class DateTimeValue implements DataValue<LocalDateTime> {
     }
 
     @Override
-    public LocalDateTime get() {
+    public Boolean get() {
         return this.val;
     }
 
@@ -73,7 +69,7 @@ public final class DateTimeValue implements DataValue<LocalDateTime> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setTimestamp(index, Timestamp.valueOf(this.val));
+        stmt.setBoolean(index, this.val);
     }
 
     @Override

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
@@ -30,9 +30,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Boolean val.
+ * Long val.
+ *
+ * @since 0.1
  */
-public final class BoolValue implements DataValue<Boolean> {
+public final class LongValue implements DataValue<Long> {
     /**
      * Name.
      */
@@ -41,7 +43,7 @@ public final class BoolValue implements DataValue<Boolean> {
     /**
      * Value.
      */
-    private final Boolean val;
+    private final Long val;
 
     /**
      * Ctor.
@@ -49,7 +51,7 @@ public final class BoolValue implements DataValue<Boolean> {
      * @param name  The name
      * @param value The value
      */
-    public BoolValue(final String name, final Boolean value) {
+    public LongValue(final String name, final Long value) {
         this.nam = name;
         this.val = value;
     }
@@ -60,7 +62,7 @@ public final class BoolValue implements DataValue<Boolean> {
     }
 
     @Override
-    public Boolean get() {
+    public Long get() {
         return this.val;
     }
 
@@ -69,7 +71,7 @@ public final class BoolValue implements DataValue<Boolean> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setBoolean(index, this.val);
+        stmt.setLong(index, this.val);
     }
 
     @Override

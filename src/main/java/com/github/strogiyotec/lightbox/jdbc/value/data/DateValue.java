@@ -21,21 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
- * Decimal val.
+ * Date val.
  *
  * @since 0.1
  */
-public final class DecimalValue implements DataValue<BigDecimal> {
+public final class DateValue implements DataValue<LocalDate> {
     /**
      * Name.
      */
@@ -44,7 +44,7 @@ public final class DecimalValue implements DataValue<BigDecimal> {
     /**
      * Value.
      */
-    private final BigDecimal val;
+    private final LocalDate val;
 
     /**
      * Ctor.
@@ -52,8 +52,8 @@ public final class DecimalValue implements DataValue<BigDecimal> {
      * @param name  The name
      * @param value The value
      */
-    public DecimalValue(final String name, final String value) {
-        this(name, new BigDecimal(value));
+    public DateValue(final String name, final String value) {
+        this(name, LocalDate.parse(value));
     }
 
     /**
@@ -62,7 +62,7 @@ public final class DecimalValue implements DataValue<BigDecimal> {
      * @param name  The name
      * @param value The value
      */
-    public DecimalValue(final String name, final BigDecimal value) {
+    public DateValue(final String name, final LocalDate value) {
         this.nam = name;
         this.val = value;
     }
@@ -73,7 +73,7 @@ public final class DecimalValue implements DataValue<BigDecimal> {
     }
 
     @Override
-    public BigDecimal get() {
+    public LocalDate get() {
         return this.val;
     }
 
@@ -82,7 +82,7 @@ public final class DecimalValue implements DataValue<BigDecimal> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setBigDecimal(index, this.val);
+        stmt.setDate(index, java.sql.Date.valueOf(this.val));
     }
 
     @Override

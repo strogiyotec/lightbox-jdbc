@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 
 import java.util.function.Function;
 
+/**
+ * This class map single result using ${{@link mapper}}
+ * @param <T> type
+ */
 @AllArgsConstructor
 public final class ResultAsCustomType<T> implements Statement<T>{
 

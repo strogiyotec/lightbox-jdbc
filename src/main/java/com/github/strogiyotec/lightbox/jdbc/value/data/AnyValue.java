@@ -21,21 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 /**
- * Date val.
- *
- * @since 0.1
+ * Any val.
  */
-public final class DateValue implements DataValue<LocalDate> {
+public final class AnyValue implements DataValue<Object> {
     /**
      * Name.
      */
@@ -44,7 +41,7 @@ public final class DateValue implements DataValue<LocalDate> {
     /**
      * Value.
      */
-    private final LocalDate val;
+    private final Object val;
 
     /**
      * Ctor.
@@ -52,17 +49,7 @@ public final class DateValue implements DataValue<LocalDate> {
      * @param name  The name
      * @param value The value
      */
-    public DateValue(final String name, final String value) {
-        this(name, LocalDate.parse(value));
-    }
-
-    /**
-     * Ctor.
-     *
-     * @param name  The name
-     * @param value The value
-     */
-    public DateValue(final String name, final LocalDate value) {
+    public AnyValue(final String name, final Object value) {
         this.nam = name;
         this.val = value;
     }
@@ -73,7 +60,7 @@ public final class DateValue implements DataValue<LocalDate> {
     }
 
     @Override
-    public LocalDate get() {
+    public Object get() {
         return this.val;
     }
 
@@ -82,7 +69,7 @@ public final class DateValue implements DataValue<LocalDate> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setDate(index, java.sql.Date.valueOf(this.val));
+        stmt.setObject(index, this.val);
     }
 
     @Override

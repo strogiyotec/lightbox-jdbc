@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc;
+package com.github.strogiyotec.lightbox.jdbc.rows;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -10,6 +10,10 @@ import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * DML query with Transaction
+ * @param <T> type
+ */
 public final class Transaction<T> implements Statement<T> {
 
     private final Session session;

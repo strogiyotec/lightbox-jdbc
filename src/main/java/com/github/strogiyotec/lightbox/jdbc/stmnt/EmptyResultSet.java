@@ -8,6 +8,9 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
 
+/**
+ * ResultSet which is empty
+ */
 public final class EmptyResultSet implements ResultSet{
     @Override
     public boolean next() throws SQLException {

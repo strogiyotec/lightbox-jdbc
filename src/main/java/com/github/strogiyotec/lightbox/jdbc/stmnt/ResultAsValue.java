@@ -9,6 +9,10 @@ import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Single value result
+ * @param <T> type
+ */
 @AllArgsConstructor
 public final class ResultAsValue<T> implements Statement<T> {
 

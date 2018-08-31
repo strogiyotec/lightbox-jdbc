@@ -4,7 +4,7 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.Query;
-import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
+import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedDataValues;
 import lombok.AllArgsConstructor;
 import org.jakarta.Text;
 

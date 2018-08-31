@@ -7,9 +7,8 @@ import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsValue;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
-import com.github.strogiyotec.lightbox.jdbc.value.IntValue;
+import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -7,7 +7,7 @@ import com.github.strogiyotec.lightbox.jdbc.rows.JsonValueOf;
 import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
-import com.github.strogiyotec.lightbox.jdbc.value.IntValue;
+import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import lombok.AllArgsConstructor;
 import org.junit.Assert;
 import org.junit.Test;

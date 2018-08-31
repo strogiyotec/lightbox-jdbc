@@ -3,8 +3,7 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.Query;
-import com.github.strogiyotec.lightbox.jdbc.value.CombinedDataValues;
-import lombok.ToString;
+import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedDataValues;
 import org.jakarta.Text;
 
 import java.io.IOException;

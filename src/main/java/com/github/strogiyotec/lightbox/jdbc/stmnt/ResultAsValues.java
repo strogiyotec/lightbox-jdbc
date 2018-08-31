@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 
 import java.util.*;
 
+/**
+ * Multyple values result with same type
+ * @param <T> type
+ */
 @AllArgsConstructor
 public final class ResultAsValues<T> implements Statement<List<T>> {
 

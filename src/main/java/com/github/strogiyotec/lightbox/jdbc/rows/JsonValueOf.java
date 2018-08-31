@@ -1,7 +1,5 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
-import com.github.strogiyotec.lightbox.jdbc.JsonResource;
-
 import javax.json.Json;
 import java.util.Map;
 

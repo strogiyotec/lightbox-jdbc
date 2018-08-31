@@ -6,7 +6,7 @@ import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.AffectedRowsCount;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.GeneratedKeys;
-import com.github.strogiyotec.lightbox.jdbc.value.StringValue;
+import com.github.strogiyotec.lightbox.jdbc.value.data.StringValue;
 import org.junit.Assert;
 import org.junit.Test;
 

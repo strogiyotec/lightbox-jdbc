@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.strogiyotec.lightbox.jdbc.value;
+package com.github.strogiyotec.lightbox.jdbc.value.data;
 
 import com.github.strogiyotec.lightbox.jdbc.DataValue;
 
@@ -30,11 +30,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Long val.
+ * Double val.
  *
  * @since 0.1
  */
-public final class LongValue implements DataValue<Long> {
+public final class DoubleValue implements DataValue<Double> {
     /**
      * Name.
      */
@@ -43,15 +43,15 @@ public final class LongValue implements DataValue<Long> {
     /**
      * Value.
      */
-    private final Long val;
+    private final Double val;
 
     /**
      * Ctor.
      *
      * @param name  The name
-     * @param value The value
+     * @param value The val
      */
-    public LongValue(final String name, final Long value) {
+    public DoubleValue(final String name, final Double value) {
         this.nam = name;
         this.val = value;
     }
@@ -62,7 +62,7 @@ public final class LongValue implements DataValue<Long> {
     }
 
     @Override
-    public Long get() {
+    public Double get() {
         return this.val;
     }
 
@@ -71,7 +71,7 @@ public final class LongValue implements DataValue<Long> {
             final PreparedStatement stmt,
             final int index
     ) throws SQLException {
-        stmt.setLong(index, this.val);
+        stmt.setDouble(index, this.val);
     }
 
     @Override

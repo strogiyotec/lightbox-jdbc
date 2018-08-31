@@ -5,7 +5,7 @@ import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.session.TransactedSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.AffectedRowsCount;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Transaction;
-import com.github.strogiyotec.lightbox.jdbc.value.IntValue;
+import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import org.junit.Assert;
 import org.junit.Test;
 
