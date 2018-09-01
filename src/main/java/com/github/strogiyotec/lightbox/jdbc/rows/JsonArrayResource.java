@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 @AllArgsConstructor
@@ -19,6 +20,12 @@ public abstract class JsonArrayResource implements JsonArray {
     public JsonArrayResource(final Supplier<JsonArray> supplier) {
         this(
                 supplier.get()
+        );
+    }
+
+    public JsonArrayResource(final Callable<JsonArray> callable) throws Exception {
+        this(
+                callable.call()
         );
     }
 

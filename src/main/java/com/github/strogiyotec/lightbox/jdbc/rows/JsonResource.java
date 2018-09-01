@@ -1,11 +1,13 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
 import lombok.EqualsAndHashCode;
+import org.jakarta.CheckedSupplier;
 
 import javax.json.*;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 
@@ -23,6 +25,14 @@ public abstract class JsonResource implements JsonObject {
      * @param resource Supply the JsonObject.
      */
     public JsonResource(final Supplier<JsonObject> resource) {
+        this(resource.get());
+    }
+
+    public JsonResource(final Callable<JsonObject> resource) throws Exception {
+        this(resource.call());
+    }
+
+    public JsonResource(final CheckedSupplier<JsonObject> resource) throws Exception {
         this(resource.get());
     }
 
