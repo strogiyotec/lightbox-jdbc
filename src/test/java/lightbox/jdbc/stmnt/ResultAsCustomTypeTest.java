@@ -1,17 +1,19 @@
 package lightbox.jdbc.stmnt;
 
 import com.github.strogiyotec.lightbox.jdbc.Result;
+import com.github.strogiyotec.lightbox.jdbc.Rows;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
+import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.JoinAsJsonArray;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.SelectWithJoin;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsCustomType;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
 import com.github.strogiyotec.lightbox.jdbc.types.IntArrayType;
 import com.github.strogiyotec.lightbox.jdbc.types.JsonType;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
-import com.github.strogiyotec.lightbox.jdbc.value.join.JoinedTable;
-import com.github.strogiyotec.lightbox.jdbc.value.join.TablesAsJsonArray;
+import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTable;
+import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -57,12 +59,12 @@ public final class ResultAsCustomTypeTest extends Assert {
     @Test
     public void test() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final Result<JsonArray> result = new JoinAsJsonArray(
+        final SelectWithJoin movie_info = new SelectWithJoin(
                 postgres,
                 new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"),
-                new TablesAsJsonArray(new JoinedTable("movie_info"))
-        ).result();
-        final JsonArray jsonValues = result.get();
-        jsonValues.forEach(System.out::println);
+                new JoinTables(new JoinTable("movie_info"))
+        );
+        final Rows maps = movie_info.result().get();
+        System.out.println(new JsonValuesOf(maps));
     }
 }
