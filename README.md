@@ -154,3 +154,85 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
 
 Here ```JsonType```
  is the mapper provided by library , if you need another type just create a ```Function``` to map object into your type
+ 
+ 
+If you need to Join two tables you usuaaly use ORM like hibernate and mapping to both classes.
+For example user create two classes: User and Payments
+In User you add something like this
+```groovy
+    @OneToMany
+    private List<Payments> payments;
+```
+And in Payments you add this
+```groovy
+    
+    @ManyToOne
+    @JoinBy("user_id")
+    private User user
+```
+
+If you use ```EAGER``` fetch type , you will receive all ```Payments``` associated with user
+
+```groovy
+   User user =  session.getOne(user_id)
+```
+
+If you use ```LAZY``` fetch type , you will receive proxy of ```Payments``` associated with user
+
+```groovy
+   User user =  session.getOne(user_id)//will return Payments as Proxy object
+```
+In ```lightbox-jdbc``` you don't need to do it. Moreover you will see all joins in your code
+
+But lets run this query directly in psql
+
+ ```select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id```
+
+This is the output:
+
+```groovy
+id;siteid;id;value;movie_id
+1;"p";1;"test";1
+2;"o";2;"test";2
+1;"p";3;"dasd";1
+```
+
+As you can see first and third rows have the same movie but different movie_infos.
+ With [Hibernate](http://hibernate.org/) you will receive all movie_info related rows as single List
+ 
+This is how you do it in ```lightbox-jdbc```
+
+```groovy
+
+final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
+        final SelectWithJoin movie_info = new SelectWithJoin(
+                postgres,
+                new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"),
+                new JoinTables(new JoinTable("movie_info"))
+        );
+        final Rows maps = movie_info.result().get();
+        System.out.println(new JsonValuesOf(maps));
+``` 
+
+This is the the output:
+
+```[
+{
+"site":"p",
+"movie_info":
+    [
+        {"id":1,"movie_id":1,"value":"test"},
+        {"id":3,"movie_id":1,"value":"dasd"}
+    ]
+ ,"id":1
+},
+{
+"site":"o",
+"movie_info":
+      {"id":2,"movie_id":2,"value":"test"},
+"id":2}
+      
+   ]
+```
+
+As you can see movie with id 1 has 2 movie_info rows associated with it

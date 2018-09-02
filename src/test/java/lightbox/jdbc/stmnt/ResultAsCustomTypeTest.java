@@ -56,15 +56,4 @@ public final class ResultAsCustomTypeTest extends Assert {
         assertTrue(select.result().get().length > 0);
     }
 
-    @Test
-    public void test() throws Exception {
-        final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final SelectWithJoin movie_info = new SelectWithJoin(
-                postgres,
-                new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"),
-                new JoinTables(new JoinTable("movie_info"))
-        );
-        final Rows maps = movie_info.result().get();
-        System.out.println(new JsonValuesOf(maps));
-    }
 }
