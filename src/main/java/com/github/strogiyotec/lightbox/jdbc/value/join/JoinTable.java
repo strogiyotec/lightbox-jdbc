@@ -26,10 +26,4 @@ public final class JoinTable implements Table {
     public String name() {
         return this.name;
     }
-
-    @Override
-    public List<String> joinBy() {
-        return this.joinBy;
-    }
-
 }

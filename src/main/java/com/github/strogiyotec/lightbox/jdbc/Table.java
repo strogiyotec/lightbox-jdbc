@@ -1,7 +1,5 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
-import java.util.List;
-
 public interface Table {
 
     /**
@@ -9,5 +7,4 @@ public interface Table {
      */
     String name();
 
-    List<String> joinBy();
 }
