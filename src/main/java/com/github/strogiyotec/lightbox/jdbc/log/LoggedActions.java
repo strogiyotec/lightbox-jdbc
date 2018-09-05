@@ -5,8 +5,11 @@ import lombok.ToString;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Configurable log client
+ */
 @ToString
-public final class LogEvents implements JdbcLog {
+public final class LoggedActions implements JdbcLog {
 
     private final boolean sqlAndTime;
 
@@ -20,7 +23,7 @@ public final class LogEvents implements JdbcLog {
 
     private final boolean transaction;
 
-    public LogEvents(final List<JdbcLog> origin) {
+    public LoggedActions(final List<JdbcLog> origin) {
         boolean sqlAndTime = false, sqlOnly = false, audit = false, resultSet = false, connection = false, transaction = false;
         for (final JdbcLog jdbcLog : origin) {
             if (jdbcLog.audit()) {
@@ -55,7 +58,7 @@ public final class LogEvents implements JdbcLog {
         this.transaction = transaction;
     }
 
-    public LogEvents(final JdbcLog... origin) {
+    public LoggedActions(final JdbcLog... origin) {
         this(
                 Arrays.asList(origin)
         );
