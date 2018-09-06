@@ -4,7 +4,6 @@ import com.github.strogiyotec.lightbox.jdbc.Session;
 import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public final class StickySession implements Session {
 

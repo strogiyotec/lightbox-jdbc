@@ -92,42 +92,42 @@ public abstract class PreparedStatementOf implements PreparedStatement {
 
     @Override
     public void setTimestamp(final int parameterIndex, final Timestamp x) throws SQLException {
-
+        this.origin.setTimestamp(parameterIndex,x);
     }
 
     @Override
     public void setAsciiStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-
+        this.origin.setAsciiStream(parameterIndex,x,length);
     }
 
     @Override
     public void setUnicodeStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-
+        this.origin.setUnicodeStream(parameterIndex,x,length);
     }
 
     @Override
     public void setBinaryStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-
+        this.origin.setBinaryStream(parameterIndex,x,length);
     }
 
     @Override
     public void clearParameters() throws SQLException {
-
+        this.origin.clearParameters();
     }
 
     @Override
     public void setObject(final int parameterIndex, final Object x, final int targetSqlType) throws SQLException {
-
+        this.origin.setObject(parameterIndex,x,targetSqlType);
     }
 
     @Override
     public void setObject(final int parameterIndex, final Object x) throws SQLException {
-
+        this.origin.setObject(parameterIndex,x);
     }
 
     @Override
     public boolean execute() throws SQLException {
-        return false;
+        return this.origin.execute();
     }
 
     @Override

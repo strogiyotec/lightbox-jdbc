@@ -1,7 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.join;
 
 import com.github.strogiyotec.lightbox.jdbc.Table;
-import org.jakarta.Text;
 
 import java.util.Arrays;
 import java.util.List;

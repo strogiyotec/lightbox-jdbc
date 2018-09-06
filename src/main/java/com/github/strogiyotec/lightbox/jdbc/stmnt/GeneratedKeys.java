@@ -3,7 +3,6 @@ package com.github.strogiyotec.lightbox.jdbc.stmnt;
 import com.github.strogiyotec.lightbox.jdbc.*;
 import com.github.strogiyotec.lightbox.jdbc.query.KeyedQuery;
 import com.github.strogiyotec.lightbox.jdbc.rows.ResultSetRows;
-import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 import java.sql.Connection;

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 
 import javax.json.JsonObject;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 @AllArgsConstructor
 public final class ConfigurableSession implements Session {

@@ -1,7 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * Session.
