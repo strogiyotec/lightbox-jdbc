@@ -15,15 +15,18 @@ public final class LoggedConnection extends ConnectionOf {
 
     private final JdbcLog jdbcLog;
 
-    private static AtomicInteger connectionId;
-
     private final int id;
 
-    public LoggedConnection(final Connection origin, final Logger log, final JdbcLog jdbcLog) {
+    private final String sql;
+
+    private static AtomicInteger connectionId;
+
+    public LoggedConnection(final Connection origin, final Logger log, final JdbcLog jdbcLog, final String sql) {
         super(origin);
         this.log = log;
         this.jdbcLog = jdbcLog;
         this.id = connectionId.getAndIncrement();
+        this.sql = sql;
     }
 
     @Override
@@ -88,7 +91,7 @@ public final class LoggedConnection extends ConnectionOf {
 
     private PreparedStatement loggedPrepareStatement(final PreparedStatement originPS) {
         if (this.jdbcLog.resultSet() || this.jdbcLog.sqlAndTime() || this.jdbcLog.sqlOnly()) {
-            return new LoggedPrepareStatement(originPS, this.id, this.log, this.jdbcLog);
+            return new LoggedPrepareStatement(originPS, this.id, this.log, this.jdbcLog, this.sql);
         } else {
             return originPS;
         }

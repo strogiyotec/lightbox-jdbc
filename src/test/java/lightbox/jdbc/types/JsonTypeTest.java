@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import javax.json.JsonObject;
 import javax.json.stream.JsonParsingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 
