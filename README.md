@@ -74,7 +74,7 @@ If you need to insert data you can use one of the following ways:
 
 ```groovy
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final AffectedRowsStatement insert = new AffectedRowsStatement(
+        final AffectedRowsCount insert = new AffectedRowsCount(
                         postgres,
                         new SimpleQuery(
                                 String.join("\n",
@@ -92,19 +92,16 @@ In this way you will receive int value which show how many rows were effected by
 2)
 ```groovy
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final InsertWithKeys insert =
-                new InsertWithKeys(
-                        new StatementWithKeys(
-                                new KeyedQuery(
-                                        String.join("\n",
-                                                "insert into people",
-                                                "(login,paasword)",
-                                                "values",
-                                                "(:name,:password)"),
-                                        new StringValue("name", "Almas"),
-                                        new StringValue("password", "qwerty")
-                                )
-                                , postgres
+        final GeneratedKeys generatedKeys = new GeneratedKeys(
+                        postgres,
+                        new KeyedQuery(
+                                String.join("\n",
+                                        "insert into people",
+                                        "(login,paasword)",
+                                        "values",
+                                        "(:name,:password)"),
+                                new StringValue("name", "Almas"),
+                                new StringValue("password", "qwerty")
                         )
                 );
         while(iterator.hasNext()){
@@ -119,14 +116,11 @@ You do delete in the same way:
 ```groovy
 
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final DeleteWithKeys deleteWithKeys = new DeleteWithKeys(
-                new StatementWithKeys(
-                        new KeyedQuery(
-                                "delete from child where par_id = 2 returning *")
-                        ,
-                        postgres
-                )
-        );
+        final GeneratedKeys generatedKeys = new GeneratedKeys(
+                        postgres,
+                        new KeyedQuery("delete from child where par_id = 2 returning *")
+        
+                );
         final Iterator<Map<String, Object>> iterator = deleteWithKeys.result().get().iterator();
         while(iterator.hasNext()){
             iterator.next().forEach((k,v)-> System.out.println(k+" "+v));
@@ -146,7 +140,8 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                                 "select info from child where par_id = :id",
                                 new IntValue("id", 228)
                         )
-                ), new JsonType()
+                ),
+                new JsonType()
         );
         final JsonObject jsonObject = select.result().get();
         assertThat(jsonObject.getString("name"),is("Almas"));
@@ -236,3 +231,26 @@ This is the the output:
 ```
 
 As you can see movie with id 1 has 2 movie_info rows associated with it
+
+
+Logging:
+
+
+If you need to log all your SQL statements you need to decorate your Session into LoggedSession:
+
+```groovy
+final SimpleQuery query = new SimpleQuery("select * from people");
+        final Session postgres = new LoggedSession(
+                new DriverSession(
+                        "jdbc:postgresql://127.0.0.1:5432/test",
+                        "postgres",
+                        "123"
+                ),
+                log,
+                query,
+                new LogStatementsOf(LogStatements.CONNECTION, LogStatements.RESULT_SET)
+        );
+        final Select select = new Select(postgres, query);
+```
+In this way you will log close,open methods of Connection class and
+all sqlExecution with executed sql query and time if execution in millis
