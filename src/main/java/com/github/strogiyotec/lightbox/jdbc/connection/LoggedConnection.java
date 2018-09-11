@@ -1,6 +1,8 @@
-package com.github.strogiyotec.lightbox.jdbc.log;
+package com.github.strogiyotec.lightbox.jdbc.connection;
 
-import com.github.strogiyotec.lightbox.jdbc.session.ConnectionOf;
+import com.github.strogiyotec.lightbox.jdbc.Query;
+import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.LoggedPrepareStatement;
 import org.slf4j.Logger;
 
 import java.sql.Connection;
@@ -13,15 +15,15 @@ public final class LoggedConnection extends ConnectionOf {
 
     private final Logger log;
 
-    private final JdbcLog jdbcLog;
+    private final LogStatements jdbcLog;
 
     private final int id;
 
-    private final String sql;
+    private final Query sql;
 
-    private static AtomicInteger connectionId;
+    private static AtomicInteger connectionId = new AtomicInteger();
 
-    public LoggedConnection(final Connection origin, final Logger log, final JdbcLog jdbcLog, final String sql) {
+    public LoggedConnection(final Connection origin, final Logger log, final LogStatements jdbcLog, final Query sql) {
         super(origin);
         this.log = log;
         this.jdbcLog = jdbcLog;
@@ -32,7 +34,7 @@ public final class LoggedConnection extends ConnectionOf {
     @Override
     public void commit() throws SQLException {
         if (this.jdbcLog.transactions()) {
-            this.log.debug("commit is invoked on connection {}", this.id);
+            this.log.info("commit is invoked on connection {}", this.id);
         }
         super.commit();
     }
@@ -40,7 +42,7 @@ public final class LoggedConnection extends ConnectionOf {
     @Override
     public void rollback() throws SQLException {
         if (this.jdbcLog.transactions()) {
-            this.log.debug("rollback is invoked on connection {}", this.id);
+            this.log.info("rollback is invoked on connection {}", this.id);
         }
         super.rollback();
     }
@@ -49,7 +51,7 @@ public final class LoggedConnection extends ConnectionOf {
     public void close() throws SQLException {
         this.origin.close();
         if (this.jdbcLog.connection()) {
-            log.debug("Connection {} is closed", this.id);
+            log.info("Connection {} is closed", this.id);
         }
     }
 

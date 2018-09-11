@@ -1,19 +1,20 @@
-package com.github.strogiyotec.lightbox.jdbc.log;
+package com.github.strogiyotec.lightbox.jdbc.stmnt;
 
-import com.github.strogiyotec.lightbox.jdbc.query.ParsedSqlQuery;
-import org.jakarta.UncheckedText;
-import org.jakarta.text.UncheckedTextOf;
+import com.github.strogiyotec.lightbox.jdbc.Query;
+import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
+import com.github.strogiyotec.lightbox.jdbc.query.SqlQuery;
 import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
+import java.time. Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public final class LoggedPrepareStatement extends PreparedStatementOf {
@@ -22,18 +23,18 @@ public final class LoggedPrepareStatement extends PreparedStatementOf {
 
     private final int id;
 
-    private final JdbcLog jdbcLog;
+    private final LogStatements logStatements;
 
     private final List<Object> argc = new ArrayList<>();
 
-    private final UncheckedText sql;
+    private final Query sql;
 
-    protected LoggedPrepareStatement(final PreparedStatement origin, final int id, final Logger log, final JdbcLog jdbcLog, final String sql) {
+    public LoggedPrepareStatement(final PreparedStatement origin, final int id, final Logger log, final LogStatements jdbcLog, final Query sql) {
         super(origin);
         this.log = log;
         this.id = id;
-        this.jdbcLog = jdbcLog;
-        this.sql = new UncheckedTextOf(sql);
+        this.logStatements = jdbcLog;
+        this.sql = sql;
     }
 
     @Override
@@ -326,67 +327,132 @@ public final class LoggedPrepareStatement extends PreparedStatementOf {
 
     @Override
     public ResultSet executeQuery() throws SQLException {
-        return super.executeQuery();
+        final Instant now = Instant.now();
+        final ResultSet resultSet = super.executeQuery();
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteQuery SQL: [{}] . Duration [{}] mls", new SqlQuery(this.argc, this.sql).asString(), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public int executeUpdate() throws SQLException {
-        return super.executeUpdate();
+        final Instant now = Instant.now();
+        final int resultSet = super.executeUpdate();
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteUpdate SQL: [{}] . Duration [{}] mls", new SqlQuery(this.argc, this.sql).asString(), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public boolean execute() throws SQLException {
-        return super.execute();
+        final Instant now = Instant.now();
+        final boolean resultSet = super.execute();
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("Execute SQL: [{}] . Duration [{}] mls", new SqlQuery(this.argc, this.sql).asString(), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public ResultSet executeQuery(final String sql) throws SQLException {
-        return super.executeQuery(sql);
+        final Instant now = Instant.now();
+        final ResultSet resultSet = super.executeQuery(sql);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteQuery SQL: [{}] R [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public int executeUpdate(final String sql) throws SQLException {
-        return super.executeUpdate(sql);
+        final Instant now = Instant.now();
+        final int resultSet = super.executeUpdate(sql);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteUpdate SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public boolean execute(final String sql) throws SQLException {
-        return super.execute(sql);
+        final Instant now = Instant.now();
+        final boolean resultSet = super.execute(sql);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("Execute SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public int[] executeBatch() throws SQLException {
-        return super.executeBatch();
+        final Instant now = Instant.now();
+        final int[] resultSet = super.executeBatch();
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteBatch SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), this.sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public int executeUpdate(final String sql, final int autoGeneratedKeys) throws SQLException {
-        return super.executeUpdate(sql, autoGeneratedKeys);
+        final Instant now = Instant.now();
+        final int resultSet = super.executeUpdate(sql, autoGeneratedKeys);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteUpdateWithAutoGeneratedKeys SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public int executeUpdate(final String sql, final int[] columnIndexes) throws SQLException {
-        return super.executeUpdate(sql, columnIndexes);
+        final Instant now = Instant.now();
+        final int resultSet = super.executeUpdate(sql, columnIndexes);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteUpdateWithColumnIndexes SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public int executeUpdate(final String sql, final String[] columnNames) throws SQLException {
-        return super.executeUpdate(sql, columnNames);
+        final Instant now = Instant.now();
+        final int resultSet = super.executeUpdate(sql, columnNames);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteUpdateColumnNames SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public boolean execute(final String sql, final int autoGeneratedKeys) throws SQLException {
-        return super.execute(sql, autoGeneratedKeys);
+        final Instant now = Instant.now();
+        final boolean resultSet = super.execute(sql, autoGeneratedKeys);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteWithAutoGeneratedKeys SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public boolean execute(final String sql, final int[] columnIndexes) throws SQLException {
-        return super.execute(sql, columnIndexes);
+        final Instant now = Instant.now();
+        final boolean resultSet = super.execute(sql, columnIndexes);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteWithColumnIndexes SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     @Override
     public boolean execute(final String sql, final String[] columnNames) throws SQLException {
-        return super.execute(sql, columnNames);
+        final Instant now = Instant.now();
+        final boolean resultSet = super.execute(sql, columnNames);
+        final Instant end = Instant.now();
+        final Duration between = Duration.between(now, end);
+        this.log.info("ExecuteWithColumnNames SQL: [{}] . Duration [{}] mls", new SqlQuery(Collections.<Object>emptyList(), sql), between.toMillis());
+        return resultSet;
     }
 
     private void setValue(final Object value, final int position) {

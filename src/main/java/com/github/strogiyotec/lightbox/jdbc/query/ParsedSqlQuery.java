@@ -4,7 +4,6 @@ import com.github.strogiyotec.lightbox.jdbc.DataValue;
 import com.github.strogiyotec.lightbox.jdbc.DataValues;
 import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedDataValues;
 import org.apache.commons.lang3.StringUtils;
-import org.jakarta.CheckedSupplier;
 import org.jakarta.ChekedBiConsumer;
 import org.jakarta.Text;
 import org.jakarta.text.JoinedText;
@@ -12,6 +11,7 @@ import org.jakarta.text.JoinedText;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +31,7 @@ public final class ParsedSqlQuery implements Text {
     /**
      * Sql query
      */
-    private final CheckedSupplier<String> sql;
+    private final Callable<String> sql;
 
     public ParsedSqlQuery(final String text, DataValues values) {
         this(() -> text, values);
@@ -73,12 +73,17 @@ public final class ParsedSqlQuery implements Text {
     }
 
     @Override
-    public String asString() throws IOException {
+    public String asString() {
         try {
-            return this.sql.get();
+            return this.sql.call();
         } catch (final Exception e) {
-            throw new IOException(e);
+            throw new IllegalStateException(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.asString();
     }
 
     /**

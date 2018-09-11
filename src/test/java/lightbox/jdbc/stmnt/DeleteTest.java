@@ -1,4 +1,3 @@
-/*
 package lightbox.jdbc.stmnt;
 
 import com.github.strogiyotec.lightbox.jdbc.Session;
@@ -42,4 +41,3 @@ public final class DeleteTest extends Assert {
 
     }
 }
-*/

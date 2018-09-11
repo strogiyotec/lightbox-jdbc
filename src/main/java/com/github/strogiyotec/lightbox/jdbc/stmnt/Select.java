@@ -24,7 +24,6 @@ public final class Select implements Statement<Rows> {
      */
     private final Query query;
 
-
     @Override
     public Result<Rows> result() throws Exception {
         try (final Connection conn = this.session.connection()) {

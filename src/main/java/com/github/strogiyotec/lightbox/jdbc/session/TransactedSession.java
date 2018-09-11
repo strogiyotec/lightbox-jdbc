@@ -1,6 +1,7 @@
 package com.github.strogiyotec.lightbox.jdbc.session;
 
 import com.github.strogiyotec.lightbox.jdbc.Session;
+import com.github.strogiyotec.lightbox.jdbc.connection.TransactionalConnection;
 import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;

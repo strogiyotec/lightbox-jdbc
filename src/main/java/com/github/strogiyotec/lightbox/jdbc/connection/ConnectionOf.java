@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc.session;
+package com.github.strogiyotec.lightbox.jdbc.connection;
 
 import java.sql.*;
 import java.util.Map;

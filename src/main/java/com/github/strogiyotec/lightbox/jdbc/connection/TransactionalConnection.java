@@ -1,5 +1,6 @@
-package com.github.strogiyotec.lightbox.jdbc.session;
+package com.github.strogiyotec.lightbox.jdbc.connection;
 
+import com.github.strogiyotec.lightbox.jdbc.connection.ConnectionOf;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.util.function.Supplier;
  * Package friendly to avoid usage without transaction
  */
 @Slf4j
-final class TransactionalConnection extends ConnectionOf {
+public final class TransactionalConnection extends ConnectionOf {
 
     public TransactionalConnection(final Connection origin) {
         super(origin);

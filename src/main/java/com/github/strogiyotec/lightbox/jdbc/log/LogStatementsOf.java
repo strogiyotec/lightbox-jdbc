@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Configurable log client
+ * Log given sql params
  */
 @ToString
-public final class LoggedActions implements JdbcLog {
+public final class LogStatementsOf implements LogStatements {
 
     private final boolean sqlAndTime;
 
@@ -23,9 +23,9 @@ public final class LoggedActions implements JdbcLog {
 
     private final boolean transaction;
 
-    public LoggedActions(final List<JdbcLog> origin) {
+    public LogStatementsOf(final List<LogStatements> origin) {
         boolean sqlAndTime = false, sqlOnly = false, audit = false, resultSet = false, connection = false, transaction = false;
-        for (final JdbcLog jdbcLog : origin) {
+        for (final LogStatements jdbcLog : origin) {
             if (jdbcLog.audit()) {
                 audit = true;
                 continue;
@@ -58,7 +58,7 @@ public final class LoggedActions implements JdbcLog {
         this.transaction = transaction;
     }
 
-    public LoggedActions(final JdbcLog... origin) {
+    public LogStatementsOf(final LogStatements... origin) {
         this(
                 Arrays.asList(origin)
         );

@@ -1,18 +1,18 @@
 package com.github.strogiyotec.lightbox.jdbc.log;
 
-public interface JdbcLog {
+public interface LogStatements {
 
-    JdbcLog SQL_AND_TIME = new SqlAndTimeLog();
+    LogStatements SQL_AND_TIME = new SqlAndTimeLog();
 
-    JdbcLog SQL = new SqlOnlyLog();
+    LogStatements SQL = new SqlOnlyLog();
 
-    JdbcLog AUDIT = new AuditLog();
+    LogStatements AUDIT = new AuditLog();
 
-    JdbcLog RESULT_SET = new ResultSetLog();
+    LogStatements RESULT_SET = new ResultSetLog();
 
-    JdbcLog CONNECTION = new ConnectionLog();
+    LogStatements CONNECTION = new ConnectionLog();
 
-    JdbcLog TRANSACTIONS = new TransactionLog();
+    LogStatements TRANSACTIONS = new TransactionLog();
 
     /**
      * @return true if need to log all sql queries and execution time
@@ -44,7 +44,7 @@ public interface JdbcLog {
      */
     boolean transactions();
 
-    class SqlAndTimeLog implements JdbcLog {
+    class SqlAndTimeLog implements LogStatements {
 
         @Override
         public boolean sqlAndTime() {
@@ -77,7 +77,7 @@ public interface JdbcLog {
         }
     }
 
-    class SqlOnlyLog implements JdbcLog {
+    class SqlOnlyLog implements LogStatements {
 
         @Override
         public boolean sqlAndTime() {
@@ -110,7 +110,7 @@ public interface JdbcLog {
         }
     }
 
-    class AuditLog implements JdbcLog {
+    class AuditLog implements LogStatements {
 
         @Override
         public boolean sqlAndTime() {
@@ -143,7 +143,7 @@ public interface JdbcLog {
         }
     }
 
-    class ResultSetLog implements JdbcLog {
+    class ResultSetLog implements LogStatements {
 
         @Override
         public boolean sqlAndTime() {
@@ -176,7 +176,7 @@ public interface JdbcLog {
         }
     }
 
-    class ConnectionLog implements JdbcLog {
+    class ConnectionLog implements LogStatements {
 
         @Override
         public boolean sqlAndTime() {
@@ -209,7 +209,7 @@ public interface JdbcLog {
         }
     }
 
-    class TransactionLog implements JdbcLog {
+    class TransactionLog implements LogStatements {
 
         @Override
         public boolean sqlAndTime() {

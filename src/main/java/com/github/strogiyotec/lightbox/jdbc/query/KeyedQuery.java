@@ -7,6 +7,7 @@ import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedDataValues;
 import org.jakarta.Text;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -49,5 +50,14 @@ public final class KeyedQuery implements Query {
     @Override
     public String asString() throws IOException {
         return this.sql.asString();
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return this.sql.asString();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }

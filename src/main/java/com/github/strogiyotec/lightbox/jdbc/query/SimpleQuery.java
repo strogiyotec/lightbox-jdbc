@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.jakarta.Text;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -26,7 +27,7 @@ public final class SimpleQuery implements Query {
      * Sql params
      */
     private final DataValues values;
-    
+
     public SimpleQuery(final String sql, final DataValue<?>... values) {
         this(
                 () -> sql,
@@ -50,5 +51,14 @@ public final class SimpleQuery implements Query {
     @Override
     public String asString() throws IOException {
         return this.sql.asString();
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return this.asString();
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }
