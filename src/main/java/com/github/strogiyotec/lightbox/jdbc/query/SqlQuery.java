@@ -9,11 +9,25 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Query with params
+ */
 public final class SqlQuery implements UncheckedText {
 
+    /**
+     * Argc of query
+     */
     private final List<Object> argc;
 
+    /**
+     * Sql
+     */
     private final String sql;
+
+    /**
+     * Params pattern
+     */
+    private static final Pattern SQL_PARAMS_PATTERN = Pattern.compile("(\\?)|(:[^ ]+)");
 
     public SqlQuery(final List<Object> argc, final String sql) {
         this.argc = argc;
@@ -41,8 +55,6 @@ public final class SqlQuery implements UncheckedText {
                 sql
         );
     }
-
-    private static final Pattern SQL_PARAMS_PATTERN = Pattern.compile("(\\?)|(:[^ ]+)");
 
     @Override
     public String asString() {

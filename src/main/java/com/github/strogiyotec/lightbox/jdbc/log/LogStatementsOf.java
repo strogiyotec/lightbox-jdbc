@@ -11,16 +11,34 @@ import java.util.List;
 @ToString
 public final class LogStatementsOf implements LogStatements {
 
+    /**
+     * Sql and time
+     */
     private final boolean sqlAndTime;
 
+    /**
+     * Sql only
+     */
     private final boolean sqlOnly;
 
+    /**
+     *  Audit
+     */
     private final boolean audit;
 
+    /**
+     * Result set
+     */
     private final boolean resultSet;
 
+    /**
+     * Connection
+     */
     private final boolean connection;
 
+    /**
+     * Transaction
+     */
     private final boolean transaction;
 
     public LogStatementsOf(final List<LogStatements> origin) {

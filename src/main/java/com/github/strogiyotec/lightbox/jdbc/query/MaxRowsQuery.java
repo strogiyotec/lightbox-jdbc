@@ -9,11 +9,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.function.Supplier;
 
+/**
+ * Query with limit size
+ */
 @AllArgsConstructor
 public final class MaxRowsQuery implements Query {
 
+    /**
+     * Oriign query
+     */
     private final Query origin;
 
+    /**
+     * Limit size
+     */
     private final int size;
 
     public MaxRowsQuery(final Supplier<Query> querySupplier, final int size) {

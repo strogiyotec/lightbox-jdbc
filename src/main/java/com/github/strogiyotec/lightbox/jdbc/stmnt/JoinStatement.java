@@ -9,13 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @AllArgsConstructor
-public final class SelectWithJoin implements Statement<Rows> {
+public final class JoinStatement implements Statement<Rows> {
 
     private final Session session;
 
     private final Query query;
 
-    private final Tables tables;
+    private final JoinedTables tables;
 
     @Override
     public Result<Rows> result() throws Exception {

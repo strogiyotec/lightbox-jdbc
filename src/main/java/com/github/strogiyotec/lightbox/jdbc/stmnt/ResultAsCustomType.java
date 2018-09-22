@@ -14,8 +14,14 @@ import java.util.function.Function;
 @AllArgsConstructor
 public final class ResultAsCustomType<T> implements Statement<T>{
 
+    /**
+     * Origin
+     */
     private final Statement<Rows> origin;
 
+    /**
+     * Mapper
+     */
     private final Function<Object,T> mapper;
 
     @Override

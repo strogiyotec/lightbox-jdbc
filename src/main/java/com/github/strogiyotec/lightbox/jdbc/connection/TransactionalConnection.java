@@ -1,6 +1,5 @@
 package com.github.strogiyotec.lightbox.jdbc.connection;
 
-import com.github.strogiyotec.lightbox.jdbc.connection.ConnectionOf;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -9,7 +8,8 @@ import java.sql.Savepoint;
 import java.util.function.Supplier;
 
 /**
- * Represent a connection which is closed only when {@link #origin} is commit or rollback
+ * Represent a connection which is closed only when
+ * {@link #origin}  commit or rollback method called
  * Package friendly to avoid usage without transaction
  */
 @Slf4j
@@ -48,7 +48,7 @@ public final class TransactionalConnection extends ConnectionOf {
 
     @Override
     public void close() throws SQLException {
-
+        //do nothing
     }
 
     @Override

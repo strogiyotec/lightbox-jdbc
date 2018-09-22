@@ -15,8 +15,7 @@ import java.sql.PreparedStatement;
  * by this statement
  */
 @AllArgsConstructor
-@ToString(of = "query")
-public final class AffectedRowsCount implements Statement<Integer> {
+public final class AmountOfRows implements Statement<Integer> {
 
     private final Session session;
 

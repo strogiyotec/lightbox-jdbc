@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 /**
  * This class return rows after DML queries as ${{@link Rows}}
  */
-@ToString(of = "query")
 public final class GeneratedKeys implements Statement<Rows> {
 
     private final Session session;

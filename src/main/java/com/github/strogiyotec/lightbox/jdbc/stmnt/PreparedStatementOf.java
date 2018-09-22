@@ -7,8 +7,14 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Calendar;
 
+/**
+ * Decorator to given origin statement
+ */
 public abstract class PreparedStatementOf implements PreparedStatement {
 
+    /**
+     * Origin
+     */
     protected final PreparedStatement origin;
 
     protected PreparedStatementOf(final PreparedStatement origin) {

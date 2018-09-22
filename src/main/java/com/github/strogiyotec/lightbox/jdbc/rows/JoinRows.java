@@ -1,39 +1,63 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
+import com.github.strogiyotec.lightbox.jdbc.JoinedTables;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
-import com.github.strogiyotec.lightbox.jdbc.Tables;
+import org.jakarta.collections.MutableListOf;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.*;
 
+/**
+ *
+ */
 public final class JoinRows implements Rows {
 
     private final List<Map<String, Object>> rows;
 
-    public JoinRows(final ResultSet rs, final Tables tables) throws Exception {
+    public JoinRows(final ResultSet rs, final JoinedTables tables) throws Exception {
         final ResultSetMetaData metaData = rs.getMetaData();
         final int columns = metaData.getColumnCount();
-        int rows = 0;
-        final List<Map<String, Object>> result = new ArrayList<>();
+        final List<Map<String, Object>> resultRows = new ArrayList<>();
         while (rs.next()) {
-            final Map<String, Object> mainTable = new HashMap<>(columns, 1.0f);
-            for (int i = 1; i <= columns; i++) {
-                final String tableName = metaData.getTableName(i);
-                final String fieldName = metaData.getColumnName(i);
-                final Object field = rs.getObject(i);
-                if (tables.support(tableName)) {
-                    tables.add(mainTable, fieldName, field, tableName, rows);
-                } else {
-                    mainTable.put(fieldName, field);
-                }
-            }
-            rows++;
-            if (!reduceByKeys(result, new HashMap<>(mainTable), tables)) {
-                result.add(mainTable);
+            final Map<String, Object> mainTable = JoinRows.singleRow(columns, rs, metaData, tables);
+            if (!JoinRows.shouldSkipRow(resultRows, new HashMap<>(mainTable), tables)) {
+                resultRows.add(mainTable);
             }
         }
-        this.rows = result;
+        this.rows = resultRows;
+    }
+
+    /**
+     * This method retrieve field from database
+     * Check does field belong tio joined tables
+     * if so add this field to joined table,
+     * Otherwise, add this field to row as single key value
+     *
+     * @param columns  columns number
+     * @param rs       Result set
+     * @param metaData Result set metadata
+     * @param tables   Joined tables
+     * @return singleRow with all fields
+     * @throws SQLException if failed
+     */
+    private static Map<String, Object> singleRow(final int columns,
+                                                 final ResultSet rs,
+                                                 final ResultSetMetaData metaData,
+                                                 final JoinedTables tables) throws SQLException {
+        final Map<String, Object> row = new LinkedHashMap<>(columns, 1.0f);
+        for (int i = 1; i <= columns; i++) {
+            final String tableName = metaData.getTableName(i);
+            final String fieldName = metaData.getColumnName(i);
+            final Object fieldValue = rs.getObject(i);
+            if (tables.contain(tableName)) {
+                tables.add(row, fieldName, fieldValue, tableName);
+            } else {
+                row.put(fieldName, fieldValue);
+            }
+        }
+        return row;
     }
 
     @Override
@@ -41,41 +65,77 @@ public final class JoinRows implements Rows {
         return this.rows.iterator();
     }
 
-    private static boolean reduceByKeys(final List<Map<String, Object>> maps, final Map<String, Object> toAdd, final Tables tables) {
-        boolean reduces = false;
-        if (!maps.isEmpty()) {
-            for (int i = 0; i < maps.size(); i++) {
-                final Map<String, Object> map = maps.get(i);
-                boolean rowsEquals = true;
-                for (final String key : map.keySet()) {
-                    if (!tables.support(key)) {
-                        final Object o1 = map.get(key);
-                        final Object o2 = toAdd.get(key);
-                        if (!o1.equals(o2)) {
-                            rowsEquals = false;
-                        }
-                        toAdd.remove(key);
-                    }
-                }
+    private static boolean shouldSkipRow(final List<Map<String, Object>> rows,
+                                         final Map<String, Object> newRow,
+                                         final JoinedTables tables) {
+        boolean shouldSkip = false;
+        if (!rows.isEmpty()) {
+            for (int i = 0; i < rows.size(); i++) {
+                final Map<String, Object> oldRow = rows.get(i);
+                final boolean rowsEquals = JoinRows.rowsEquals(oldRow, tables, newRow);
                 if (rowsEquals) {
+                    shouldSkip = true;
                     final List<String> names = tables.names();
-                    for (final String name : names) {
-                        final Object o = map.get(name);
-                        if (o instanceof Map) {
-                            final Map<String, Object> origin = (Map<String, Object>) map.get(name);
-                            final Map<String, Object> newOne = (Map<String, Object>) toAdd.get(name);
-                            map.put(name, Arrays.asList(origin, newOne));
-                        } else {
-                            final List<Map<String, Object>> origin = (List<Map<String, Object>>) map.get(name);
-                            final Map<String, Object> newOne = (Map<String, Object>) toAdd.get(name);
-                            origin.add(newOne);
-                            map.put(name, origin);
-                        }
-                        reduces = true;
-                    }
+                    JoinRows.no(names, oldRow, newRow);
                 }
             }
         }
-        return reduces;
+        return shouldSkip;
+    }
+
+    /**
+     * This method retrieve each key from oldRow's keySet,
+     * if key is not joined table name then compare value of this key
+     * from both rows, if they are equals remove this key from newRow,
+     * so in the end newRow will contain only joined tables
+     * comparing each value from both rows,
+     * if they equals , remove field from newRow
+     * If rows are equals , newRow will contain only
+     *
+     * @param oldRow old oldRow
+     * @param tables Joined tables
+     * @param newRow new oldRow
+     * @return true if old row and new Rows are equal
+     */
+    private static boolean rowsEquals(final Map<String, Object> oldRow, final JoinedTables tables, final Map<String, Object> newRow) {
+        boolean rowsEquals = true;
+        for (final String key : oldRow.keySet()) {
+            if (!tables.contain(key)) {
+                final Object o1 = oldRow.get(key);
+                final Object o2 = newRow.get(key);
+                if (!o1.equals(o2)) {
+                    rowsEquals = false;
+                    break;
+                } else {
+                    newRow.remove(key);
+                }
+            }
+        }
+        return rowsEquals;
+    }
+
+    /**
+     * This method get joined table map from oldRow
+     * and check is it single map , if so add joined table map from new row to old row,
+     * otherwise retrieve list of joined table maps and add new map from newRow to this list
+     *
+     * @param names  List of joined table names
+     * @param oldRow old row
+     * @param newRow new row
+     */
+    private static void no(final List<String> names, final Map<String, Object> oldRow, final Map<String, Object> newRow) {
+        for (final String name : names) {
+            final Object field = oldRow.get(name);
+            if (field instanceof Map) {
+                final Map<String, Object> origin = (Map<String, Object>) field;
+                final Map<String, Object> newOne = (Map<String, Object>) newRow.get(name);
+                oldRow.put(name, new MutableListOf<>(origin, newOne));
+            } else if (field instanceof List) {
+                final List<Map<String, Object>> origin = (List<Map<String, Object>>) field;
+                final Map<String, Object> newOne = (Map<String, Object>) newRow.get(name);
+                origin.add(newOne);
+                oldRow.put(name, origin);
+            }
+        }
     }
 }

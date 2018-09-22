@@ -6,8 +6,14 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
+/**
+ * Abstract Connection that encapsulate origin connection
+ */
 public abstract class ConnectionOf implements Connection {
 
+    /**
+     * Origin connection
+     */
     protected final Connection origin;
 
     public ConnectionOf(final Connection origin) {
