@@ -21,9 +21,9 @@ public final class JoinRows implements Rows {
         final int columns = metaData.getColumnCount();
         final List<Map<String, Object>> resultRows = new ArrayList<>();
         while (rs.next()) {
-            final Map<String, Object> mainTable = JoinRows.singleRow(columns, rs, metaData, tables);
-            if (!JoinRows.shouldSkipRow(resultRows, new HashMap<>(mainTable), tables)) {
-                resultRows.add(mainTable);
+            final Map<String, Object> row = JoinRows.singleRow(columns, rs, metaData, tables);
+            if (!JoinRows.shouldSkipRow(resultRows, new HashMap<>(row), tables)) {
+                resultRows.add(row);
             }
         }
         this.rows = resultRows;
@@ -75,8 +75,7 @@ public final class JoinRows implements Rows {
                 final boolean rowsEquals = JoinRows.rowsEquals(oldRow, tables, newRow);
                 if (rowsEquals) {
                     shouldSkip = true;
-                    final List<String> names = tables.names();
-                    JoinRows.no(names, oldRow, newRow);
+                    JoinRows.addJoinedRow(tables, oldRow, newRow);
                 }
             }
         }
@@ -118,24 +117,32 @@ public final class JoinRows implements Rows {
      * This method get joined table map from oldRow
      * and check is it single map , if so add joined table map from new row to old row,
      * otherwise retrieve list of joined table maps and add new map from newRow to this list
+     * Method add new joined table only when values from new table are not present in old joined tables
      *
-     * @param names  List of joined table names
+     * @param tables Joined tables
      * @param oldRow old row
      * @param newRow new row
      */
-    private static void no(final List<String> names, final Map<String, Object> oldRow, final Map<String, Object> newRow) {
+    private static void addJoinedRow(final JoinedTables tables, final Map<String, Object> oldRow, final Map<String, Object> newRow) {
+        final List<String> names = tables.names();
         for (final String name : names) {
             final Object field = oldRow.get(name);
             if (field instanceof Map) {
                 final Map<String, Object> origin = (Map<String, Object>) field;
                 final Map<String, Object> newOne = (Map<String, Object>) newRow.get(name);
-                oldRow.put(name, new MutableListOf<>(origin, newOne));
+                if (!origin.equals(newOne)) {
+                    oldRow.put(name, new MutableListOf<>(origin, newOne));
+                }
             } else if (field instanceof List) {
                 final List<Map<String, Object>> origin = (List<Map<String, Object>>) field;
                 final Map<String, Object> newOne = (Map<String, Object>) newRow.get(name);
-                origin.add(newOne);
-                oldRow.put(name, origin);
+                if (origin.stream().noneMatch(row -> row.equals(newOne))) {
+                    origin.add(newOne);
+                    oldRow.put(name, origin);
+                }
             }
         }
     }
+
+
 }
