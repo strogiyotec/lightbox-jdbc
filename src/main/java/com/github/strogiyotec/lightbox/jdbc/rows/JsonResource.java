@@ -10,7 +10,9 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
-
+/**
+ * Decorator for origin JsonObject
+ */
 @EqualsAndHashCode(of = "resource")
 public abstract class JsonResource implements JsonObject {
 

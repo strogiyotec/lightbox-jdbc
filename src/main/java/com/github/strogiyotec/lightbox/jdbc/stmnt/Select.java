@@ -1,7 +1,7 @@
 package com.github.strogiyotec.lightbox.jdbc.stmnt;
 
 import com.github.strogiyotec.lightbox.jdbc.*;
-import com.github.strogiyotec.lightbox.jdbc.rows.ResultSetRows;
+import com.github.strogiyotec.lightbox.jdbc.rows.RowsOfResultSet;
 import lombok.AllArgsConstructor;
 
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public final class Select implements Statement<Rows> {
     private final Session session;
 
     /**
-     * query
+     * Query
      */
     private final Query query;
 
@@ -30,7 +30,7 @@ public final class Select implements Statement<Rows> {
             try (final PreparedStatement stmt = this.query.prepared(conn)) {
                 final boolean execute = stmt.execute();
                 try (final ResultSet set = stmt.getResultSet()) {
-                    final Rows rows = new ResultSetRows(execute ? set : new EmptyResultSet());
+                    final Rows rows = new RowsOfResultSet(execute ? set : new EmptyResultSet());
                     return () -> rows;
                 }
             }

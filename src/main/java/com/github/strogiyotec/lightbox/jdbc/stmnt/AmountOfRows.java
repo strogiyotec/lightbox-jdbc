@@ -17,8 +17,14 @@ import java.sql.PreparedStatement;
 @AllArgsConstructor
 public final class AmountOfRows implements Statement<Integer> {
 
+    /**
+     * Session
+     */
     private final Session session;
 
+    /**
+     * Query
+     */
     private final Query query;
 
     @Override

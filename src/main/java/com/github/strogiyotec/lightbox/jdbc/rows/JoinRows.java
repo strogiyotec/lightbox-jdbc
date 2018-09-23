@@ -2,6 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.rows;
 
 import com.github.strogiyotec.lightbox.jdbc.JoinedTables;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
+import com.google.common.collect.Lists;
 import org.jakarta.collections.MutableListOf;
 
 import java.sql.ResultSet;
@@ -10,10 +11,13 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- *
+ * Join tables into one Row
  */
 public final class JoinRows implements Rows {
 
+    /**
+     * Fetched rows
+     */
     private final List<Map<String, Object>> rows;
 
     public JoinRows(final ResultSet rs, final JoinedTables tables) throws Exception {
@@ -65,6 +69,14 @@ public final class JoinRows implements Rows {
         return this.rows.iterator();
     }
 
+    /**
+     *
+     * @param rows total rows
+     * @param newRow new fetched row
+     * @param tables joined tables
+     * @return true if newRow contains row with data which is
+     * not present in rows
+     */
     private static boolean shouldSkipRow(final List<Map<String, Object>> rows,
                                          final Map<String, Object> newRow,
                                          final JoinedTables tables) {
@@ -131,7 +143,7 @@ public final class JoinRows implements Rows {
                 final Map<String, Object> origin = (Map<String, Object>) field;
                 final Map<String, Object> newOne = (Map<String, Object>) newRow.get(name);
                 if (!origin.equals(newOne)) {
-                    oldRow.put(name, new MutableListOf<>(origin, newOne));
+                    oldRow.put(name, Lists.newArrayList(origin, newOne));
                 }
             } else if (field instanceof List) {
                 final List<Map<String, Object>> origin = (List<Map<String, Object>>) field;

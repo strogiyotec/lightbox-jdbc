@@ -6,8 +6,14 @@ import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
 
+/**
+ * Transacted session
+ */
 public final class TransactedSession implements Session {
 
+    /**
+     * Origin
+     */
     private final Session origin;
 
     public TransactedSession(final Session origin) throws Exception{

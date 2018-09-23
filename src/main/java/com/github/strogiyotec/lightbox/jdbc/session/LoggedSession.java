@@ -8,14 +8,29 @@ import org.slf4j.Logger;
 
 import java.sql.Connection;
 
+/**
+ * Loggable session
+ */
 public final class LoggedSession implements Session{
 
+    /**
+     * Origin session
+     */
     private final Session origin;
 
+    /**
+     * Logger
+     */
     private final Logger logger;
 
+    /**
+     * Query to be logged
+     */
     private final Query query;
 
+    /**
+     * Statements to be log
+     */
     private final LogStatements logStatements;
 
     public LoggedSession(final Session origin, final Logger logger, final Query query, final LogStatements logStatements) {

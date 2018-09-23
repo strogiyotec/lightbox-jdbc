@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.Calendar;
 
 /**
- * Decorator to given origin statement
+ * Decorator to given {@link PreparedStatement}
  */
 public abstract class PreparedStatementOf implements PreparedStatement {
 

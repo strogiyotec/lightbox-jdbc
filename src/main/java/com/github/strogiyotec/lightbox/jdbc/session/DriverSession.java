@@ -8,6 +8,9 @@ import lombok.ToString;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * Driver session
+ */
 @AllArgsConstructor
 @ToString(of = "url")
 @EqualsAndHashCode(of = "url")

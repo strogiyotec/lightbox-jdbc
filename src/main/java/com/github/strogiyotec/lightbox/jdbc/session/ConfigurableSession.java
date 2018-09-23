@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import javax.json.JsonObject;
 import java.sql.Connection;
 
+/**
+ * Configurable session by {@link JsonObject}
+ */
 @AllArgsConstructor
 public final class ConfigurableSession implements Session {
 

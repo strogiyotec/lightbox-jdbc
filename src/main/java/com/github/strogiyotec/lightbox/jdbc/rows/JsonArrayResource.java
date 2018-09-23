@@ -11,10 +11,16 @@ import java.util.ListIterator;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
+/**
+ * Decorator for origin JsonArray
+ */
 @AllArgsConstructor
 @EqualsAndHashCode(of = "origin")
 public abstract class JsonArrayResource implements JsonArray {
 
+    /**
+     * Origin
+     */
     private final JsonArray origin;
 
     public JsonArrayResource(final Supplier<JsonArray> supplier) {

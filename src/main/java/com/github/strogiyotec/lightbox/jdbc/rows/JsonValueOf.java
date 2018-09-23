@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 
+/**
+ * JsonObject from Map
+ */
 public final class JsonValueOf extends JsonResource {
 
     public JsonValueOf(final Map<String, Object> rows) {
