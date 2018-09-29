@@ -1,4 +1,4 @@
-package lightbox.jdbc.log;
+package lightbox.jdbc.query;
 
 import com.github.strogiyotec.lightbox.jdbc.query.SqlQuery;
 import org.junit.Assert;

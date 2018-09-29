@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * ResultSet which is empty
  */
-public final class EmptyResultSet implements ResultSet{
+public final class EmptyResultSet implements ResultSet {
     @Override
     public boolean next() throws SQLException {
         return false;
@@ -418,23 +418,23 @@ public final class EmptyResultSet implements ResultSet{
     }
 
     @Override
-    public void setFetchDirection(final int direction) throws SQLException {
-
-    }
-
-    @Override
     public int getFetchDirection() throws SQLException {
         return 0;
     }
 
     @Override
-    public void setFetchSize(final int rows) throws SQLException {
+    public void setFetchDirection(final int direction) throws SQLException {
 
     }
 
     @Override
     public int getFetchSize() throws SQLException {
         return 0;
+    }
+
+    @Override
+    public void setFetchSize(final int rows) throws SQLException {
+
     }
 
     @Override

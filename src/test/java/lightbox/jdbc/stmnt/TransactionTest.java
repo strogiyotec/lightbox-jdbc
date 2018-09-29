@@ -3,7 +3,7 @@ package lightbox.jdbc.stmnt;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.session.TransactedSession;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.AffectedRowsCount;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Transaction;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import org.junit.Assert;
@@ -26,7 +26,7 @@ public final class TransactionTest extends Assert {
         final Transaction<Integer> transaction = new Transaction<>(
                 session,
                 () -> {
-                    final AffectedRowsCount id = new AffectedRowsCount(
+                    final Update id = new Update(
                             session,
                             new SimpleQuery(
                                     "insert into child (par_id) values (:id)",

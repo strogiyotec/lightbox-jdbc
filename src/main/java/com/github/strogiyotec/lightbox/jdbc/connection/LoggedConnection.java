@@ -2,7 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.connection;
 
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.LoggedPrepareStatement;
+import com.github.strogiyotec.lightbox.jdbc.prprstmnt.LoggedPrepareStatement;
 import org.slf4j.Logger;
 
 import java.sql.Connection;

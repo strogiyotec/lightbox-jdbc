@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc.stmnt;
+package com.github.strogiyotec.lightbox.jdbc.prprstmnt;
 
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;

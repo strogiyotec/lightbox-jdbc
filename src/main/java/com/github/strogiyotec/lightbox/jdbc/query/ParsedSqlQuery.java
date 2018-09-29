@@ -8,7 +8,6 @@ import org.jakarta.ChekedBiConsumer;
 import org.jakarta.Text;
 import org.jakarta.text.JoinedText;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -23,11 +22,13 @@ public final class ParsedSqlQuery implements Text {
     /**
      * sql pattern
      */
-    private static final Pattern SQL_PATTERN = Pattern.compile("(?<!'):([\\w]*)(?!')");
+    private static final Pattern SQL_PATTERN = Pattern.compile("(?<!['\"]):([a-zA-Z0-9]*)(?!['\"])");
+
     /**
      * Sql format checker
      */
     private static final ChekedBiConsumer<DataValues, List<String>> checkedSql = new ValidSqlFormat();
+
     /**
      * Sql query
      */

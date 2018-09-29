@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc.stmnt;
+package com.github.strogiyotec.lightbox.jdbc.prprstmnt;
 
 import java.io.InputStream;
 import java.io.Reader;

@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 /**
  * This class return rows after DML queries as ${{@link Rows}}
  */
-public final class GeneratedKeys implements Statement<Rows> {
+public final class KeyedUpdate implements Statement<Rows> {
 
     /**
      * Session
@@ -23,7 +23,7 @@ public final class GeneratedKeys implements Statement<Rows> {
      */
     private final Query query;
 
-    public GeneratedKeys(final Session session, final KeyedQuery query) {
+    public KeyedUpdate(final Session session, final KeyedQuery query) {
         this.session = session;
         this.query = query;
     }

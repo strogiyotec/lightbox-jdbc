@@ -5,7 +5,6 @@ import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.Statement;
 import lombok.AllArgsConstructor;
-import lombok.ToString;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +14,7 @@ import java.sql.PreparedStatement;
  * by this statement
  */
 @AllArgsConstructor
-public final class AmountOfRows implements Statement<Integer> {
+public final class Update implements Statement<Integer> {
 
     /**
      * Session
@@ -31,8 +30,8 @@ public final class AmountOfRows implements Statement<Integer> {
     public Result<Integer> result() throws Exception {
         try (final Connection connection = session.connection()) {
             try (final PreparedStatement statement = this.query.prepared(connection)) {
-                final int i = statement.executeUpdate();
-                return () -> i;
+                final int rows = statement.executeUpdate();
+                return () -> rows;
             }
         }
     }

@@ -4,8 +4,8 @@ import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.KeyedQuery;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.AffectedRowsCount;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.GeneratedKeys;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.KeyedUpdate;
 import com.github.strogiyotec.lightbox.jdbc.value.data.StringValue;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public final class InsertTest extends Assert {
     @Test
     public void testInsert() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final AffectedRowsCount insert = new AffectedRowsCount(
+        final Update insert = new Update(
                 postgres,
                 new SimpleQuery(
                         String.join("\n",
@@ -36,7 +36,7 @@ public final class InsertTest extends Assert {
     @Test
     public void insertWithKeys() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final GeneratedKeys generatedKeys = new GeneratedKeys(
+        final KeyedUpdate keyedUpdate = new KeyedUpdate(
                 postgres,
                 new KeyedQuery(
                         String.join("\n",
@@ -48,7 +48,7 @@ public final class InsertTest extends Assert {
                         new StringValue("password", "qwerty")
                 )
         );
-        final Iterator<Map<String, Object>> iterator = generatedKeys.result().get().iterator();
+        final Iterator<Map<String, Object>> iterator = keyedUpdate.result().get().iterator();
         boolean keysArePresent = false;
         while (iterator.hasNext()) {
             iterator.next().forEach((k, v) -> System.out.println(k + " " + v));
