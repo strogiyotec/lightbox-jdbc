@@ -11,16 +11,19 @@ import java.sql.Connection;
 /**
  * Factory of fake connections
  */
-public final class FakeDatabaseSession implements Session {
+public final class FakeDatabaseSession implements Session, AutoCloseable {
 
     /**
-     * Fake postgres
+     * Fake source
      */
-    private final static DataSource postgres;
+    private final static DataSource source;
+
+    private final static EmbeddedPostgres postgres;
 
     static {
         try {
-            postgres = EmbeddedPostgres.start().getPostgresDatabase();
+            postgres = EmbeddedPostgres.start();
+            source = postgres.getPostgresDatabase();
         } catch (final IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -28,6 +31,11 @@ public final class FakeDatabaseSession implements Session {
 
     @Override
     public Connection connection() throws Exception {
-        return FakeDatabaseSession.postgres.getConnection();
+        return FakeDatabaseSession.source.getConnection();
+    }
+
+    @Override
+    public void close() throws Exception {
+        postgres.close();
     }
 }

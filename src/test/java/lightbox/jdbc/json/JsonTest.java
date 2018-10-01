@@ -2,9 +2,7 @@ package lightbox.jdbc.json;
 
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
-import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.script.SqlScript;
-import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsCustomType;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
 import com.github.strogiyotec.lightbox.jdbc.types.JsonType;
@@ -14,10 +12,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public final class JsonTest {
@@ -38,15 +36,15 @@ public final class JsonTest {
                 String.join(
                         " ",
                         "INSERT INTO testJson ",
-                        "(data) ",
+                        "(data,id) ",
                         "VALUES ",
-                        "('{\"name\":\"Almas\"}')"
+                        "('{\"name\":\"Almas\",\"phones\":[\"8-800-555-35-35\"]}',1)"
                 )
         ).execute();
     }
 
     @Test
-    public void testJsonValue() throws Exception {
+    public void fetchNameFromJsonObject() throws Exception {
         final ResultAsCustomType<JsonObject> json = new ResultAsCustomType<>(
                 new Select(
                         session,
@@ -58,15 +56,15 @@ public final class JsonTest {
     }
 
     @Test
-    public void testJsonValues() throws Exception {
-        final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final JsonArray jsonValuesOf = new JsonValuesOf(
+    public void fetchJsonArrayFromJsonObject() throws Exception {
+        final ResultAsCustomType<JsonObject> json = new ResultAsCustomType<>(
                 new Select(
-                        postgres,
-                        new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id")
-                ).result().get()
+                        session,
+                        new SimpleQuery("select data from testJson where id = :id", new IntValue("id", 1))
+                ),
+                new JsonType()
         );
-        System.out.println(jsonValuesOf);
+        assertFalse(json.result().get().getJsonArray("phones").isEmpty());
     }
 
     @AfterClass
