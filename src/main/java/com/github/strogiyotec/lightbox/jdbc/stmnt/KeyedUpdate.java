@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * This class return rows after DML queries as ${{@link Rows}}
+ * This class return rows after DML queries as ${@link Rows}
  */
 public final class KeyedUpdate implements Statement<Rows> {
 
