@@ -6,7 +6,7 @@ import com.github.strogiyotec.lightbox.jdbc.query.KeyedQuery;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.script.SqlScript;
-import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.Delete;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.KeyedUpdate;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
 import com.github.strogiyotec.lightbox.jdbc.value.data.StringValue;
@@ -51,7 +51,7 @@ public final class DeleteTest extends Assert {
 
     @Test
     public void deleteSingleRow() throws Exception {
-        final Result<Integer> result = new Update(
+        final Result<Integer> result = new Delete(
                 postgres,
                 new SimpleQuery(
                         "DELETE from testDelete WHERE name LIKE :name",
