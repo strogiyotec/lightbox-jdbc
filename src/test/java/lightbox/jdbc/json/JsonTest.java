@@ -1,12 +1,15 @@
 package lightbox.jdbc.json;
 
+import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.script.SqlScript;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsCustomType;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
 import com.github.strogiyotec.lightbox.jdbc.types.JsonType;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
+import com.github.strogiyotec.lightbox.jdbc.value.data.JsonValue;
 import lightbox.jdbc.fake.FakeDatabaseSession;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -15,8 +18,7 @@ import org.junit.Test;
 import javax.json.JsonObject;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public final class JsonTest {
 
@@ -61,6 +63,25 @@ public final class JsonTest {
                 new JsonType()
         );
         assertThat(json.result().get().getString("name"), is("Almas"));
+    }
+
+    @Test
+    public void insertJson() throws Exception {
+        final Result<Integer> result = new Update(
+                session,
+                new SimpleQuery(
+                        String.join(
+                                " ",
+                                "INSERT INTO testJson ",
+                                "(data,id) ",
+                                "VALUES ",
+                                "(cast (:data as json),:id)"
+                        ),
+                        new JsonValue("data", "{\"name\":\"Serik\"}"),
+                        new IntValue("id", 10)
+                )
+        ).result();
+        assertTrue(result.get() == 1);
     }
 
     @Test

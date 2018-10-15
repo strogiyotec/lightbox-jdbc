@@ -2,6 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.rows;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.stream.JsonParser;
 import java.io.StringReader;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -17,7 +18,11 @@ public final class JsonValueOf extends JsonResource {
     }
 
     public JsonValueOf(final String value) {
-        super(Json.createParser(new StringReader(value)).getObject());
+        super((Supplier<JsonObject>) () -> {
+            final JsonParser parser = Json.createParser(new StringReader(value));
+            parser.next();
+            return parser.getObject();
+        });
     }
 
 }
