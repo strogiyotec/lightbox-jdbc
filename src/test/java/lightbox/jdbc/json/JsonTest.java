@@ -43,6 +43,14 @@ public final class JsonTest {
         ).execute();
     }
 
+    @AfterClass
+    public static void removeDb() throws Exception {
+        new SqlScript(
+                session,
+                "drop table testJson"
+        ).execute();
+    }
+
     @Test
     public void fetchNameFromJsonObject() throws Exception {
         final ResultAsCustomType<JsonObject> json = new ResultAsCustomType<>(
@@ -65,13 +73,5 @@ public final class JsonTest {
                 new JsonType()
         );
         assertFalse(json.result().get().getJsonArray("phones").isEmpty());
-    }
-
-    @AfterClass
-    public static void removeDb() throws Exception {
-        new SqlScript(
-                session,
-                "drop table testJson"
-        ).execute();
     }
 }

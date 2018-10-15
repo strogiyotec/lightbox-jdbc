@@ -49,6 +49,14 @@ public final class DeleteTest extends Assert {
         ).execute();
     }
 
+    @AfterClass
+    public static void deleteTable() throws Exception {
+        new SqlScript(
+                postgres,
+                "DROP TABLE testDelete"
+        ).execute();
+    }
+
     @Test
     public void deleteSingleRow() throws Exception {
         final Result<Integer> result = new Delete(
@@ -73,7 +81,6 @@ public final class DeleteTest extends Assert {
         assertThat(result.get(), is(0));
     }
 
-
     @Test
     public void deleteWithKeys() throws Exception {
         final JsonValuesOf jsonValues = new JsonValuesOf(
@@ -88,14 +95,5 @@ public final class DeleteTest extends Assert {
         );
         assertTrue(!jsonValues.isEmpty());
         assertThat(jsonValues.get(0).asJsonObject().getString("name"), is("Murat"));
-    }
-
-
-    @AfterClass
-    public static void deleteTable() throws Exception {
-        new SqlScript(
-                postgres,
-                "DROP TABLE testDelete"
-        ).execute();
     }
 }

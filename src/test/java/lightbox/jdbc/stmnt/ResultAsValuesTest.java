@@ -11,7 +11,6 @@ import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTable;
 import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables;
-import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -76,11 +75,11 @@ public final class ResultAsValuesTest extends Assert {
                 postgres,
                 new SimpleQuery(
                         String.join(" ",
-                        "select m.* , mi.* , mt.* from movie m ",
-                        "inner join movie_info mi on m.id = mi.movie_id ",
-                        "inner join movie_test mt on m.id = mt.movie_id")
+                                "select m.* , mi.* , mt.* from movie m ",
+                                "inner join movie_info mi on m.id = mi.movie_id ",
+                                "inner join movie_test mt on m.id = mt.movie_id")
                 ),
-                new JoinTables(new JoinTable("movie_info"),new JoinTable("movie_test"))
+                new JoinTables(new JoinTable("movie_info"), new JoinTable("movie_test"))
         );
         final Rows maps = movie_info.result().get();
         System.out.println(new JsonValuesOf(maps));
