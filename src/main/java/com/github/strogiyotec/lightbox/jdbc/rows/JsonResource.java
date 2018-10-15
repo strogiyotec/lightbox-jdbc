@@ -1,7 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
 import lombok.EqualsAndHashCode;
-import org.jakarta.CheckedSupplier;
 
 import javax.json.*;
 import java.util.Collection;
@@ -21,11 +20,6 @@ public abstract class JsonResource implements JsonObject {
      */
     private final JsonObject resource;
 
-    /**
-     * Ctor.
-     *
-     * @param resource Supply the JsonObject.
-     */
     public JsonResource(final Supplier<JsonObject> resource) {
         this(resource.get());
     }
@@ -33,11 +27,6 @@ public abstract class JsonResource implements JsonObject {
     public JsonResource(final Callable<JsonObject> resource) throws Exception {
         this(resource.call());
     }
-
-    public JsonResource(final CheckedSupplier<JsonObject> resource) throws Exception {
-        this(resource.get());
-    }
-
 
     public JsonResource(final JsonObject resource) {
         this.resource = resource;
