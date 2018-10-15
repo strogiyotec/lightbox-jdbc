@@ -30,7 +30,7 @@ public final class Select implements Statement<Rows> {
             try (final PreparedStatement stmt = this.query.prepared(conn)) {
                 final boolean execute = stmt.execute();
                 try (final ResultSet set = stmt.getResultSet()) {
-                    final Rows rows = new RowsOfResultSet(execute ? set : new EmptyResultSet());
+                    final Rows rows = new RowsOfResultSet(execute ? set : EmptyResultSet.EMPTY_RS);
                     return () -> rows;
                 }
             }

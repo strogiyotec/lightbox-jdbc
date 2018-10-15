@@ -21,6 +21,9 @@ import java.util.Map;
         }
 )
 public final class EmptyResultSet implements ResultSet {
+
+    public static final ResultSet EMPTY_RS = new EmptyResultSet();
+
     @Override
     public boolean next() throws SQLException {
         return false;
