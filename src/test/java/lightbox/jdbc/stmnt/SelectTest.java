@@ -1,9 +1,12 @@
 package lightbox.jdbc.stmnt;
 
+import com.github.strogiyotec.lightbox.jdbc.Result;
+import com.github.strogiyotec.lightbox.jdbc.Rows;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.script.SqlScript;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
+import com.google.common.collect.Lists;
 import lightbox.jdbc.fake.FakeDatabaseSession;
 import lightbox.jdbc.stmnt.select.DbUser;
 import lightbox.jdbc.stmnt.select.DbUsers;
@@ -62,5 +65,14 @@ public final class SelectTest extends Assert {
                 ).result().get()
         ).iterator();
         iterator.forEachRemaining(user -> assertTrue(!user.name().isEmpty()));
+    }
+
+    @Test
+    public void selectWithNoResult() throws Exception {
+        final Result<Rows> result = new Select(
+                postgres,
+                new SimpleQuery("SELECT * from testSelect where id = 10")
+        ).result();
+        assertTrue(Lists.newArrayList(result.get()).isEmpty());
     }
 }
