@@ -11,6 +11,15 @@ import java.util.Map;
 /**
  * ResultSet which is empty
  */
+@SuppressWarnings(
+        {
+                "PMD",
+                "checkstyle:ParameterNameCheck",
+                "checkstyle:LineLengthCheck",
+                "checkstyle:EmptyLinesCheck",
+                "checkstyle:ImportOrderCheck"
+        }
+)
 public final class EmptyResultSet implements ResultSet {
     @Override
     public boolean next() throws SQLException {

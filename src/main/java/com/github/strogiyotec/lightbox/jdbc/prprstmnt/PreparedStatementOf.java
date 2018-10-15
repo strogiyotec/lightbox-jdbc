@@ -10,6 +10,7 @@ import java.util.Calendar;
 /**
  * Decorator to given {@link PreparedStatement}
  */
+@SuppressWarnings("PMD")
 public abstract class PreparedStatementOf implements PreparedStatement {
 
     /**
@@ -98,22 +99,22 @@ public abstract class PreparedStatementOf implements PreparedStatement {
 
     @Override
     public void setTimestamp(final int parameterIndex, final Timestamp x) throws SQLException {
-        this.origin.setTimestamp(parameterIndex,x);
+        this.origin.setTimestamp(parameterIndex, x);
     }
 
     @Override
     public void setAsciiStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-        this.origin.setAsciiStream(parameterIndex,x,length);
+        this.origin.setAsciiStream(parameterIndex, x, length);
     }
 
     @Override
     public void setUnicodeStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-        this.origin.setUnicodeStream(parameterIndex,x,length);
+        this.origin.setUnicodeStream(parameterIndex, x, length);
     }
 
     @Override
     public void setBinaryStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-        this.origin.setBinaryStream(parameterIndex,x,length);
+        this.origin.setBinaryStream(parameterIndex, x, length);
     }
 
     @Override
@@ -123,12 +124,12 @@ public abstract class PreparedStatementOf implements PreparedStatement {
 
     @Override
     public void setObject(final int parameterIndex, final Object x, final int targetSqlType) throws SQLException {
-        this.origin.setObject(parameterIndex,x,targetSqlType);
+        this.origin.setObject(parameterIndex, x, targetSqlType);
     }
 
     @Override
     public void setObject(final int parameterIndex, final Object x) throws SQLException {
-        this.origin.setObject(parameterIndex,x);
+        this.origin.setObject(parameterIndex, x);
     }
 
     @Override
@@ -387,23 +388,23 @@ public abstract class PreparedStatementOf implements PreparedStatement {
     }
 
     @Override
-    public void setFetchDirection(final int direction) throws SQLException {
-        this.origin.setFetchDirection(direction);
-    }
-
-    @Override
     public int getFetchDirection() throws SQLException {
         return this.origin.getFetchDirection();
     }
 
     @Override
-    public void setFetchSize(final int rows) throws SQLException {
-        this.origin.setFetchSize(rows);
+    public void setFetchDirection(final int direction) throws SQLException {
+        this.origin.setFetchDirection(direction);
     }
 
     @Override
     public int getFetchSize() throws SQLException {
         return this.origin.getFetchSize();
+    }
+
+    @Override
+    public void setFetchSize(final int rows) throws SQLException {
+        this.origin.setFetchSize(rows);
     }
 
     @Override
@@ -487,13 +488,13 @@ public abstract class PreparedStatementOf implements PreparedStatement {
     }
 
     @Override
-    public void setPoolable(final boolean poolable) throws SQLException {
-        this.origin.setPoolable(poolable);
+    public boolean isPoolable() throws SQLException {
+        return this.origin.isPoolable();
     }
 
     @Override
-    public boolean isPoolable() throws SQLException {
-        return this.origin.isPoolable();
+    public void setPoolable(final boolean poolable) throws SQLException {
+        this.origin.setPoolable(poolable);
     }
 
     @Override

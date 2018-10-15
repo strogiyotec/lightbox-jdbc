@@ -42,10 +42,11 @@ public final class JoinTables implements JoinedTables {
      * if so get map which represent joined table and add new fieldName and fieldValue to this map
      * otherwise , create new {@link MutableMapOf} with given fieldName and fieldValue and add this map
      * to mainTable
-     * @param mainTable  table which is mainTable
-     * @param fieldName  field name
-     * @param fieldValue field Value
-     * @param joinedTableName  joined table name
+     *
+     * @param mainTable       table which is mainTable
+     * @param fieldName       field name
+     * @param fieldValue      field Value
+     * @param joinedTableName joined table name
      */
     @Override
     public void add(final Map<String, Object> mainTable,

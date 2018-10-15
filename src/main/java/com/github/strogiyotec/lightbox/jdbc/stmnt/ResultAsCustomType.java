@@ -9,10 +9,11 @@ import java.util.function.Function;
 
 /**
  * This class map single result using ${{@link Function}}
+ *
  * @param <T> type
  */
 @AllArgsConstructor
-public final class ResultAsCustomType<T> implements Statement<T>{
+public final class ResultAsCustomType<T> implements Statement<T> {
 
     /**
      * Origin
@@ -22,7 +23,7 @@ public final class ResultAsCustomType<T> implements Statement<T>{
     /**
      * Mapper
      */
-    private final Function<Object,T> mapper;
+    private final Function<Object, T> mapper;
 
     @Override
     public Result<T> result() throws Exception {
@@ -31,6 +32,6 @@ public final class ResultAsCustomType<T> implements Statement<T>{
                 Object.class
         );
         final Object result = value.result().get();
-        return ()->this.mapper.apply(result);
+        return () -> this.mapper.apply(result);
     }
 }

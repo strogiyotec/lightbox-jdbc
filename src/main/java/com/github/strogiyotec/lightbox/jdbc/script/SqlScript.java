@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Execute given scripts as separate query 
+ * Execute given scripts as separate query
  */
 public final class SqlScript implements Script {
 

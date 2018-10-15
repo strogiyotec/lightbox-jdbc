@@ -15,19 +15,17 @@ import java.util.regex.Pattern;
 public final class SqlQuery implements UncheckedText {
 
     /**
+     * Params pattern
+     */
+    private static final Pattern SQL_PARAMS_PATTERN = Pattern.compile("(\\?)|(:[^ ]+)");
+    /**
      * Argc of query
      */
     private final List<Object> argc;
-
     /**
      * Sql
      */
     private final String sql;
-
-    /**
-     * Params pattern
-     */
-    private static final Pattern SQL_PARAMS_PATTERN = Pattern.compile("(\\?)|(:[^ ]+)");
 
     public SqlQuery(final List<Object> argc, final String sql) {
         this.argc = argc;

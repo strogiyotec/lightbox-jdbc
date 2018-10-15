@@ -2,8 +2,8 @@ package com.github.strogiyotec.lightbox.jdbc.session;
 
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.Session;
-import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
 import com.github.strogiyotec.lightbox.jdbc.connection.LoggedConnection;
+import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
 import org.slf4j.Logger;
 
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.sql.Connection;
 /**
  * Loggable session
  */
-public final class LoggedSession implements Session{
+public final class LoggedSession implements Session {
 
     /**
      * Origin session
@@ -42,6 +42,6 @@ public final class LoggedSession implements Session{
 
     @Override
     public Connection connection() throws Exception {
-        return new LoggedConnection(this.origin.connection(),this.logger,this.logStatements,this.query);
+        return new LoggedConnection(this.origin.connection(), this.logger, this.logStatements, this.query);
     }
 }

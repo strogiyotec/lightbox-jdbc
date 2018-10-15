@@ -20,10 +20,11 @@ public interface JoinedTables {
     /**
      * This method add field of the joined table to mainTable table
      * Data structure of joined table field depend on implementation
-     * @param mainTable  table which is mainTable
-     * @param fieldName  field name
-     * @param fieldValue field Value
-     * @param joinedTableName  joined table name
+     *
+     * @param mainTable       table which is mainTable
+     * @param fieldName       field name
+     * @param fieldValue      field Value
+     * @param joinedTableName joined table name
      */
     void add(Map<String, Object> mainTable, String fieldName, Object fieldValue, String joinedTableName);
 }

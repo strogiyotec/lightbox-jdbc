@@ -22,7 +22,7 @@ public final class LogStatementsOf implements LogStatements {
     private final boolean sqlOnly;
 
     /**
-     *  Audit
+     * Audit
      */
     private final boolean audit;
 

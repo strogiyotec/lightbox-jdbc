@@ -3,7 +3,6 @@ package com.github.strogiyotec.lightbox.jdbc.rows;
 import com.github.strogiyotec.lightbox.jdbc.JoinedTables;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
 import com.google.common.collect.Lists;
-import org.jakarta.collections.MutableListOf;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -64,14 +63,8 @@ public final class JoinRows implements Rows {
         return row;
     }
 
-    @Override
-    public Iterator<Map<String, Object>> iterator() {
-        return this.rows.iterator();
-    }
-
     /**
-     *
-     * @param rows total rows
+     * @param rows   total rows
      * @param newRow new fetched row
      * @param tables joined tables
      * @return true if newRow contains row with data which is
@@ -154,6 +147,11 @@ public final class JoinRows implements Rows {
                 }
             }
         }
+    }
+
+    @Override
+    public Iterator<Map<String, Object>> iterator() {
+        return this.rows.iterator();
     }
 
 

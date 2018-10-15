@@ -11,12 +11,12 @@ public final class JoinTable implements Table {
 
     private final List<String> joinBy;
 
-    public JoinTable(final String name,final List<String> joinBy) {
+    public JoinTable(final String name, final List<String> joinBy) {
         this.name = name;
         this.joinBy = joinBy;
     }
 
-    public JoinTable(final CharSequence name,final String... joinBy) {
+    public JoinTable(final CharSequence name, final String... joinBy) {
         this.name = name.toString();
         this.joinBy = Arrays.asList(joinBy);
     }

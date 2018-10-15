@@ -13,32 +13,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Logged connection
  */
+@SuppressWarnings("PMD")
 public final class LoggedConnection extends ConnectionOf {
-
-    /**
-     * Logger
-     */
-    private final Logger log;
-
-    /**
-     * Statements to be log
-     */
-    private final LogStatements jdbcLog;
-
-    /**
-     * Id of connection
-     */
-    private final int id;
-
-    /**
-     * Query to be logged
-     */
-    private final Query sql;
 
     /**
      * Factory of connection id's
      */
     private static AtomicInteger connectionId = new AtomicInteger();
+    /**
+     * Logger
+     */
+    private final Logger log;
+    /**
+     * Statements to be log
+     */
+    private final LogStatements jdbcLog;
+    /**
+     * Id of connection
+     */
+    private final int id;
+    /**
+     * Query to be logged
+     */
+    private final Query sql;
 
     public LoggedConnection(final Connection origin, final Logger log, final LogStatements jdbcLog, final Query sql) {
         super(origin);
