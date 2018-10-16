@@ -9,6 +9,7 @@ import java.util.*;
 
 /**
  * Multyple values result with same type
+ *
  * @param <T> type
  */
 @AllArgsConstructor

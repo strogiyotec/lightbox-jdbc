@@ -36,16 +36,16 @@ public final class ResultAsValueTest extends Assert {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
         final Select select =
                 new Select(
-                    postgres,
-                    new SimpleQuery(
-                        String.join(
-                                " ",
-                                "insert into child (par_id)",
-                                "values",
-                                "(:id)"
-                        ),
-                        new IntValue("id", -321)
-                    )
+                        postgres,
+                        new SimpleQuery(
+                                String.join(
+                                        " ",
+                                        "insert into child (par_id)",
+                                        "values",
+                                        "(:id)"
+                                ),
+                                new IntValue("id", -321)
+                        )
                 );
         final Rows maps = select.result().get();
         assertTrue(Iterables.isEmpty(maps));

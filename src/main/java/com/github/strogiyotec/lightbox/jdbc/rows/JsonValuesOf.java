@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Supplier;
 
+/**
+ * JsonArray from Rows
+ */
 public final class JsonValuesOf extends JsonArrayResource {
 
     public JsonValuesOf(final Rows rows) {

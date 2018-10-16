@@ -5,8 +5,14 @@ import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
 
+/**
+ * Session of single connection
+ */
 public final class StickySession implements Session {
 
+    /**
+     * Connection
+     */
     private final Connection connection;
 
     public StickySession(final Connection connection) throws Exception {

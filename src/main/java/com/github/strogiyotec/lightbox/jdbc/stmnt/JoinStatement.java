@@ -8,14 +8,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * Statement with join
+ */
 @AllArgsConstructor
-public final class SelectWithJoin implements Statement<Rows> {
+public final class JoinStatement implements Statement<Rows> {
 
+    /**
+     * Session
+     */
     private final Session session;
 
+    /**
+     * Query
+     */
     private final Query query;
 
-    private final Tables tables;
+    /**
+     * Tables to be joined
+     */
+    private final JoinedTables tables;
 
     @Override
     public Result<Rows> result() throws Exception {

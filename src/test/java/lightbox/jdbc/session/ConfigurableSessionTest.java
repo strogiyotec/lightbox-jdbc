@@ -11,10 +11,10 @@ import java.sql.Connection;
 
 import static org.hamcrest.CoreMatchers.is;
 
-public final class ConfigurableSessionTest extends Assert{
+public final class ConfigurableSessionTest extends Assert {
 
     @Test
-    public void testConfiguration() throws Exception{
+    public void testConfiguration() throws Exception {
         final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
         final Connection connection = new ConfigurableSession(
                 postgres,
@@ -24,8 +24,8 @@ public final class ConfigurableSessionTest extends Assert{
                         .build()
         ).connection();
 
-        assertThat(connection.getAutoCommit(),is(true));
-        assertThat(connection.isReadOnly(),is(true));
+        assertThat(connection.getAutoCommit(), is(true));
+        assertThat(connection.isReadOnly(), is(true));
 
     }
 }

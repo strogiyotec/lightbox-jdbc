@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc.stmnt;
+package com.github.strogiyotec.lightbox.jdbc.prprstmnt;
 
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
@@ -10,13 +10,14 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
-import java.time. Duration;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("PMD")
 public final class LoggedPrepareStatement extends PreparedStatementOf {
 
     private final Logger log;

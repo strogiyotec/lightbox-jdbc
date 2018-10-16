@@ -1,23 +1,16 @@
 package lightbox.jdbc.stmnt;
 
-import com.github.strogiyotec.lightbox.jdbc.Result;
-import com.github.strogiyotec.lightbox.jdbc.Rows;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
-import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.SelectWithJoin;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.ResultAsCustomType;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
 import com.github.strogiyotec.lightbox.jdbc.types.IntArrayType;
 import com.github.strogiyotec.lightbox.jdbc.types.JsonType;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
-import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTable;
-import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 
 import static org.hamcrest.CoreMatchers.is;

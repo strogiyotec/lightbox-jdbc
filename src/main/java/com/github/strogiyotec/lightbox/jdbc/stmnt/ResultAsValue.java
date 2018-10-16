@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * Single value result
+ *
  * @param <T> type
  */
 @AllArgsConstructor
@@ -26,6 +27,12 @@ public final class ResultAsValue<T> implements Statement<T> {
      */
     private final Class<T> type;
 
+    private static void checkRowsOnEmpty(final Rows rows) {
+        if (Iterables.isEmpty(rows)) {
+            throw new IllegalStateException("Sql query return empty result set");
+        }
+    }
+
     @Override
     public Result<T> result() throws Exception {
         final Rows result = this.origin.result().get();
@@ -35,11 +42,5 @@ public final class ResultAsValue<T> implements Statement<T> {
                 this.type.cast(
                         value.get(new ArrayList<>(value.keySet()).get(0))
                 );
-    }
-
-    private static void checkRowsOnEmpty(final Rows rows) {
-        if (Iterables.isEmpty(rows)) {
-            throw new IllegalStateException("Sql query return empty result set");
-        }
     }
 }

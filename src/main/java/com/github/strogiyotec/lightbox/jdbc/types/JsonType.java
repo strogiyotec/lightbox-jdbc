@@ -10,7 +10,7 @@ public final class JsonType implements Function<Object, JsonObject> {
 
     @Override
     public JsonObject apply(final Object o) {
-        try(final JsonReader reader = Json.createReader(new StringReader(o.toString()))){
+        try (final JsonReader reader = Json.createReader(new StringReader(o.toString()))) {
             return reader.readObject();
         }
     }

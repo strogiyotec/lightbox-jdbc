@@ -92,7 +92,7 @@ In this way you will receive int value which show how many rows were effected by
 2)
 ```groovy
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final GeneratedKeys generatedKeys = new GeneratedKeys(
+        final GeneratedKeys keyedUpdate = new GeneratedKeys(
                         postgres,
                         new KeyedQuery(
                                 String.join("\n",
@@ -116,7 +116,7 @@ You do delete in the same way:
 ```groovy
 
 final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
-        final GeneratedKeys generatedKeys = new GeneratedKeys(
+        final GeneratedKeys keyedUpdate = new GeneratedKeys(
                         postgres,
                         new KeyedQuery("delete from child where par_id = 2 returning *")
         

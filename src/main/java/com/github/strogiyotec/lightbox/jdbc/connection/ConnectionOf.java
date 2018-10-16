@@ -6,8 +6,15 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
+/**
+ * Abstract Connection that encapsulate origin connection
+ */
+@SuppressWarnings("PMD")
 public abstract class ConnectionOf implements Connection {
 
+    /**
+     * Origin connection
+     */
     protected final Connection origin;
 
     public ConnectionOf(final Connection origin) {
@@ -41,13 +48,13 @@ public abstract class ConnectionOf implements Connection {
     }
 
     @Override
-    public void setAutoCommit(final boolean autoCommit) throws SQLException {
-        this.origin.setAutoCommit(autoCommit);
+    public boolean getAutoCommit() throws SQLException {
+        return this.origin.getAutoCommit();
     }
 
     @Override
-    public boolean getAutoCommit() throws SQLException {
-        return this.origin.getAutoCommit();
+    public void setAutoCommit(final boolean autoCommit) throws SQLException {
+        this.origin.setAutoCommit(autoCommit);
     }
 
     @Override
@@ -76,18 +83,13 @@ public abstract class ConnectionOf implements Connection {
     }
 
     @Override
-    public void setReadOnly(final boolean readOnly) throws SQLException {
-        this.origin.setReadOnly(readOnly);
-    }
-
-    @Override
     public boolean isReadOnly() throws SQLException {
         return this.origin.isReadOnly();
     }
 
     @Override
-    public void setCatalog(final String catalog) throws SQLException {
-        this.origin.setCatalog(catalog);
+    public void setReadOnly(final boolean readOnly) throws SQLException {
+        this.origin.setReadOnly(readOnly);
     }
 
     @Override
@@ -96,13 +98,18 @@ public abstract class ConnectionOf implements Connection {
     }
 
     @Override
-    public void setTransactionIsolation(final int level) throws SQLException {
-        this.origin.setTransactionIsolation(level);
+    public void setCatalog(final String catalog) throws SQLException {
+        this.origin.setCatalog(catalog);
     }
 
     @Override
     public int getTransactionIsolation() throws SQLException {
         return this.origin.getTransactionIsolation();
+    }
+
+    @Override
+    public void setTransactionIsolation(final int level) throws SQLException {
+        this.origin.setTransactionIsolation(level);
     }
 
     @Override
@@ -141,13 +148,13 @@ public abstract class ConnectionOf implements Connection {
     }
 
     @Override
-    public void setHoldability(final int holdability) throws SQLException {
-        this.origin.setHoldability(holdability);
+    public int getHoldability() throws SQLException {
+        return this.origin.getHoldability();
     }
 
     @Override
-    public int getHoldability() throws SQLException {
-        return this.origin.getHoldability();
+    public void setHoldability(final int holdability) throws SQLException {
+        this.origin.setHoldability(holdability);
     }
 
     @Override
@@ -231,11 +238,6 @@ public abstract class ConnectionOf implements Connection {
     }
 
     @Override
-    public void setClientInfo(final Properties properties) throws SQLClientInfoException {
-        this.origin.setClientInfo(properties);
-    }
-
-    @Override
     public String getClientInfo(final String name) throws SQLException {
         return this.origin.getClientInfo(name);
     }
@@ -243,6 +245,11 @@ public abstract class ConnectionOf implements Connection {
     @Override
     public Properties getClientInfo() throws SQLException {
         return this.origin.getClientInfo();
+    }
+
+    @Override
+    public void setClientInfo(final Properties properties) throws SQLClientInfoException {
+        this.origin.setClientInfo(properties);
     }
 
     @Override
@@ -256,13 +263,13 @@ public abstract class ConnectionOf implements Connection {
     }
 
     @Override
-    public void setSchema(final String schema) throws SQLException {
-        this.origin.setSchema(schema);
+    public String getSchema() throws SQLException {
+        return this.origin.getSchema();
     }
 
     @Override
-    public String getSchema() throws SQLException {
-        return this.origin.getSchema();
+    public void setSchema(final String schema) throws SQLException {
+        this.origin.setSchema(schema);
     }
 
     @Override

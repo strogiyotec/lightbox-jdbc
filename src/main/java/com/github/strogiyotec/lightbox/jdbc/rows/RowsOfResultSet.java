@@ -7,11 +7,17 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.*;
 
-public final class ResultSetRows implements Rows {
+/**
+ * Rows from {@link ResultSet}
+ */
+public final class RowsOfResultSet implements Rows {
 
+    /**
+     * DB rows
+     */
     private final List<Map<String, Object>> rows;
 
-    public ResultSetRows(final ResultSet resultSet) throws SQLException {
+    public RowsOfResultSet(final ResultSet resultSet) throws SQLException {
         final ResultSetMetaData metaData = resultSet.getMetaData();
         final int cols = metaData.getColumnCount();
         final List<Map<String, Object>> rows = new LinkedList<>();
@@ -32,12 +38,5 @@ public final class ResultSetRows implements Rows {
     @Override
     public Iterator<Map<String, Object>> iterator() {
         return this.rows.iterator();
-    }
-
-    private static int resultSetSize(final ResultSet resultSet) throws SQLException {
-        resultSet.last();
-        final int row = resultSet.getRow();
-        resultSet.beforeFirst();
-        return row;
     }
 }

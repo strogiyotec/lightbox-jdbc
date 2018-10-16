@@ -17,15 +17,17 @@ public final class ScrollableQuery implements Query {
 
     */
 /**
-     * Sql query
-     *//*
+ * Sql query
+ * <p>
+ * Sql params
+ *//*
 
     private final Text sql;
 
     */
 /**
-     * Sql params
-     *//*
+ * Sql params
+ *//*
 
     private final DataValues values;
 

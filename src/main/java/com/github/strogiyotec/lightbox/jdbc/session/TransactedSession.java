@@ -6,11 +6,17 @@ import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
 
+/**
+ * Transacted session
+ */
 public final class TransactedSession implements Session {
 
+    /**
+     * Origin
+     */
     private final Session origin;
 
-    public TransactedSession(final Session origin) throws Exception{
+    public TransactedSession(final Session origin) throws Exception {
         this.origin = new StickySession((CheckedSupplier<Connection>) () -> {
             final Connection connection = origin.connection();
             connection.setAutoCommit(false);
@@ -20,6 +26,6 @@ public final class TransactedSession implements Session {
 
     @Override
     public Connection connection() throws Exception {
-       return this.origin.connection();
+        return this.origin.connection();
     }
 }

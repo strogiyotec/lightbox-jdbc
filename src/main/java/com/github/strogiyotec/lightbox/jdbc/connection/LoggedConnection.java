@@ -2,7 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.connection;
 
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.log.LogStatements;
-import com.github.strogiyotec.lightbox.jdbc.stmnt.LoggedPrepareStatement;
+import com.github.strogiyotec.lightbox.jdbc.prprstmnt.LoggedPrepareStatement;
 import org.slf4j.Logger;
 
 import java.sql.Connection;
@@ -10,18 +10,32 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
+/**
+ * Logged connection
+ */
+@SuppressWarnings("PMD")
 public final class LoggedConnection extends ConnectionOf {
 
-    private final Logger log;
-
-    private final LogStatements jdbcLog;
-
-    private final int id;
-
-    private final Query sql;
-
+    /**
+     * Factory of connection id's
+     */
     private static AtomicInteger connectionId = new AtomicInteger();
+    /**
+     * Logger
+     */
+    private final Logger log;
+    /**
+     * Statements to be log
+     */
+    private final LogStatements jdbcLog;
+    /**
+     * Id of connection
+     */
+    private final int id;
+    /**
+     * Query to be logged
+     */
+    private final Query sql;
 
     public LoggedConnection(final Connection origin, final Logger log, final LogStatements jdbcLog, final Query sql) {
         super(origin);

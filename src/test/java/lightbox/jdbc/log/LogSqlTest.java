@@ -8,6 +8,7 @@ import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.session.LoggedSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
+import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +20,7 @@ public final class LogSqlTest extends Assert {
 
     @Test
     public void shouldLogSqlQuery() throws Exception {
+        final EmbeddedPostgres start = EmbeddedPostgres.start();
         final SimpleQuery query = new SimpleQuery("select * from people");
         final Session postgres = new LoggedSession(
                 new DriverSession(
