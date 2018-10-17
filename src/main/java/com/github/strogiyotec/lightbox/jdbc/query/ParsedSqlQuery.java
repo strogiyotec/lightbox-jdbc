@@ -74,17 +74,8 @@ public final class ParsedSqlQuery implements Text {
     }
 
     @Override
-    public String asString() {
-        try {
-            return this.sql.call();
-        } catch (final Exception e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return this.asString();
+    public String asString() throws Exception {
+        return this.sql.call();
     }
 
     /**

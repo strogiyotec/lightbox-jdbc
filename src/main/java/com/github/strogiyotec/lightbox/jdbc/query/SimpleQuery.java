@@ -48,7 +48,7 @@ public final class SimpleQuery implements Query {
     }
 
     @Override
-    public String asString() throws IOException {
+    public String asString() throws Exception {
         return this.sql.asString();
     }
 }

@@ -40,7 +40,7 @@ public final class BatchQuery implements Query {
     }
 
     @Override
-    public String asString() throws IOException {
+    public String asString() throws Exception {
         return this.query.asString();
     }
 }

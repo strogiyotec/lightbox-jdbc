@@ -50,7 +50,7 @@ public final class KeyedQuery implements Query {
     }
 
     @Override
-    public String asString() throws IOException {
+    public String asString() throws Exception {
         return this.sql.asString();
     }
 }

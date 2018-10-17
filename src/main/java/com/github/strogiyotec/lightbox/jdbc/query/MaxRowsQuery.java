@@ -3,8 +3,6 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.Query;
 import lombok.AllArgsConstructor;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.function.Supplier;
@@ -37,16 +35,7 @@ public final class MaxRowsQuery implements Query {
     }
 
     @Override
-    public String asString() throws IOException {
+    public String asString() throws Exception {
         return this.origin.asString();
-    }
-
-    @Override
-    public String toString() {
-        try {
-            return this.origin.asString();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 }
