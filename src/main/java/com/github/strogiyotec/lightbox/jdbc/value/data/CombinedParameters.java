@@ -50,6 +50,11 @@ public final class CombinedParameters implements Parameters {
     }
 
     @Override
+    public int amount() {
+        return this.values.size();
+    }
+
+    @Override
     public Iterator<Parameter<?>> iterator() {
         return this.values.iterator();
     }

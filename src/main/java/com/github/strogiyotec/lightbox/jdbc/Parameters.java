@@ -24,4 +24,9 @@ public interface Parameters extends Iterable<Parameter<?>> {
      * @throws SQLException if failed
      */
     PreparedStatement prepare(PreparedStatement statement) throws SQLException;
+
+    /**
+     * @return amount of parameters
+     */
+    int amount();
 }
