@@ -1,6 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
  *
  * @since 0.1
  */
-public final class DateValue implements DataValue<LocalDate> {
+public final class DateValue implements Parameter<LocalDate> {
     /**
      * Name.
      */

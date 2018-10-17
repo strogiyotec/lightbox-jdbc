@@ -1,13 +1,12 @@
 package com.github.strogiyotec.lightbox.jdbc.query;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
-import com.github.strogiyotec.lightbox.jdbc.DataValues;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
+import com.github.strogiyotec.lightbox.jdbc.Parameters;
 import com.github.strogiyotec.lightbox.jdbc.Query;
-import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedDataValues;
+import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedParameters;
 import lombok.AllArgsConstructor;
 import org.jakarta.Text;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -25,18 +24,18 @@ public final class SimpleQuery implements Query {
     /**
      * Sql params
      */
-    private final DataValues values;
+    private final Parameters values;
 
-    public SimpleQuery(final String sql, final DataValue<?>... values) {
+    public SimpleQuery(final String sql, final Parameter<?>... values) {
         this(
                 () -> sql,
                 values
         );
     }
 
-    public SimpleQuery(final Text sql, final DataValue<?>... vals) {
+    public SimpleQuery(final Text sql, final Parameter<?>... vals) {
         this.sql = new ParsedSqlQuery(sql, vals);
-        this.values = new CombinedDataValues(vals);
+        this.values = new CombinedParameters(vals);
     }
 
 

@@ -1,7 +1,7 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
-import com.github.strogiyotec.lightbox.jdbc.DataValues;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
+import com.github.strogiyotec.lightbox.jdbc.Parameters;
 import lombok.AllArgsConstructor;
 
 import java.sql.PreparedStatement;
@@ -12,28 +12,28 @@ import java.util.*;
  * Combined data values
  */
 @AllArgsConstructor
-public final class CombinedDataValues implements DataValues {
+public final class CombinedParameters implements Parameters {
 
     /**
      * Values
      */
-    private final List<DataValue<?>> values;
+    private final List<Parameter<?>> values;
 
 
-    public CombinedDataValues(DataValue<?>... values) {
+    public CombinedParameters(Parameter<?>... values) {
         this(
                 Arrays.asList(values)
         );
     }
 
-    public CombinedDataValues(Collection<DataValue<?>> values) {
+    public CombinedParameters(Collection<Parameter<?>> values) {
         this(
                 Collections.unmodifiableList(new ArrayList<>(values))
         );
     }
 
     @Override
-    public DataValues with(final DataValue<?> value) {
+    public Parameters with(final Parameter<?> value) {
         this.values.add(value);
         return this;
     }
@@ -41,7 +41,7 @@ public final class CombinedDataValues implements DataValues {
     @Override
     public PreparedStatement prepare(final PreparedStatement statement) throws SQLException {
         int index = 1;
-        for (final DataValue<?> value : this.values) {
+        for (final Parameter<?> value : this.values) {
             value.prepare(statement, index);
             ++index;
         }
@@ -50,7 +50,7 @@ public final class CombinedDataValues implements DataValues {
     }
 
     @Override
-    public Iterator<DataValue<?>> iterator() {
+    public Iterator<Parameter<?>> iterator() {
         return this.values.iterator();
     }
 }

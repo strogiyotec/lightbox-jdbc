@@ -1,8 +1,8 @@
 package com.github.strogiyotec.lightbox.jdbc.query;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
-import com.github.strogiyotec.lightbox.jdbc.DataValues;
-import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedDataValues;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
+import com.github.strogiyotec.lightbox.jdbc.Parameters;
+import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedParameters;
 import org.apache.commons.lang3.StringUtils;
 import org.jakarta.ChekedBiConsumer;
 import org.jakarta.Text;
@@ -27,29 +27,29 @@ public final class ParsedSqlQuery implements Text {
     /**
      * Sql format checker
      */
-    private static final ChekedBiConsumer<DataValues, List<String>> checkedSql = new ValidSqlFormat();
+    private static final ChekedBiConsumer<Parameters, List<String>> checkedSql = new ValidSqlFormat();
 
     /**
      * Sql query
      */
     private final Callable<String> sql;
 
-    public ParsedSqlQuery(final String text, DataValues values) {
+    public ParsedSqlQuery(final String text, Parameters values) {
         this(() -> text, values);
     }
 
-    public ParsedSqlQuery(final String text, DataValue<?>... values) {
-        this(() -> text, new CombinedDataValues(values));
+    public ParsedSqlQuery(final String text, Parameter<?>... values) {
+        this(() -> text, new CombinedParameters(values));
     }
 
-    public ParsedSqlQuery(final Text text, DataValue<?>... values) {
+    public ParsedSqlQuery(final Text text, Parameter<?>... values) {
         this(
                 text,
-                new CombinedDataValues(values)
+                new CombinedParameters(values)
         );
     }
 
-    public ParsedSqlQuery(final Text text, DataValues values) {
+    public ParsedSqlQuery(final Text text, Parameters values) {
         this.sql = () -> {
             final String origin = text.asString();
             final List<String> list = combineSqlMatchers(origin);
@@ -81,12 +81,12 @@ public final class ParsedSqlQuery implements Text {
     /**
      * Validate given Sql
      */
-    private static final class ValidSqlFormat implements ChekedBiConsumer<DataValues, List<String>> {
+    private static final class ValidSqlFormat implements ChekedBiConsumer<Parameters, List<String>> {
 
         @Override
-        public void accept(final DataValues values, final List<String> fields) throws Exception {
+        public void accept(final Parameters values, final List<String> fields) throws Exception {
             int index = 0;
-            for (final DataValue<?> val : values) {
+            for (final Parameter<?> val : values) {
                 if (!val.name().equals(fields.get(index))) {
                     throw new IllegalArgumentException(
                             String.format(

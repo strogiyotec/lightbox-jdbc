@@ -6,15 +6,15 @@ import java.sql.SQLException;
 /**
  * A set of Data values
  */
-public interface DataValues extends Iterable<DataValue<?>> {
+public interface Parameters extends Iterable<Parameter<?>> {
 
     /**
-     * Add a value into {@link DataValues}
+     * Add a value into {@link Parameters}
      *
      * @param value to be added
-     * @return The new {@link DataValues}
+     * @return The new {@link Parameters}
      */
-    DataValues with(DataValue<?> value);
+    Parameters with(Parameter<?> value);
 
     /**
      * Set the {@link PreparedStatement} with all data values

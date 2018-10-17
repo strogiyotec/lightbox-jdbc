@@ -1,6 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Boolean val.
  */
-public final class BoolValue implements DataValue<Boolean> {
+public final class BoolValue implements Parameter<Boolean> {
     /**
      * Name.
      */

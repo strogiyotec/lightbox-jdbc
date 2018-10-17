@@ -29,18 +29,18 @@ public final class ScrollableQuery implements Query {
  * Sql params
  *//*
 
-    private final DataValues values;
+    private final Parameters values;
 
-    public ScrollableQuery(final String sql, final DataValue<?>... values) {
+    public ScrollableQuery(final String sql, final Parameter<?>... values) {
         this(
                 () -> sql,
                 values
         );
     }
 
-    public ScrollableQuery(final Text sql, final DataValue<?>... vals) {
+    public ScrollableQuery(final Text sql, final Parameter<?>... vals) {
         this.sql = new ParsedSqlQuery(sql, vals);
-        this.values = new CombinedDataValues(vals);
+        this.values = new CombinedParameters(vals);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 /**
  * A named value
  */
-public interface DataValue<T> extends Supplier<T>, Text {
+public interface Parameter<T> extends Supplier<T>, Text {
 
     /**
      * Get the data value name.

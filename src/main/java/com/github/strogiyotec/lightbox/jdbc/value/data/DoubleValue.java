@@ -1,6 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
  *
  * @since 0.1
  */
-public final class DoubleValue implements DataValue<Double> {
+public final class DoubleValue implements Parameter<Double> {
     /**
      * Name.
      */

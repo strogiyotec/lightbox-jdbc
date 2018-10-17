@@ -1,6 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @since 0.1
  */
-public final class DecimalValue implements DataValue<BigDecimal> {
+public final class DecimalValue implements Parameter<BigDecimal> {
     /**
      * Name.
      */

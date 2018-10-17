@@ -1,6 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
 import com.github.strogiyotec.lightbox.jdbc.rows.JsonValueOf;
 
 import javax.json.JsonObject;
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Json val.
  */
-public final class JsonValue implements DataValue<JsonObject> {
+public final class JsonValue implements Parameter<JsonObject> {
 
     /**
      * Name

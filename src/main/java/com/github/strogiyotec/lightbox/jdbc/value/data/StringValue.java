@@ -1,6 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.value.data;
 
-import com.github.strogiyotec.lightbox.jdbc.DataValue;
+import com.github.strogiyotec.lightbox.jdbc.Parameter;
 import lombok.AllArgsConstructor;
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @AllArgsConstructor
-public final class StringValue implements DataValue<String> {
+public final class StringValue implements Parameter<String> {
 
     private final String name;
 
