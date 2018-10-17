@@ -6,7 +6,6 @@ import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedParameters;
 import org.apache.commons.lang3.StringUtils;
 import org.jakarta.ChekedBiConsumer;
 import org.jakarta.Text;
-import org.jakarta.text.JoinedText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,16 +84,17 @@ public final class ParsedSqlQuery implements Text {
 
         @Override
         public void accept(final Parameters values, final List<String> fields) throws Exception {
+            checkRange(values.amount(), fields.size());
             int index = 0;
             for (final Parameter<?> val : values) {
                 if (!val.name().equals(fields.get(index))) {
                     throw new IllegalArgumentException(
                             String.format(
-                                    new JoinedText(
+                                    String.join(
                                             " ",
                                             "SQL #%d (%s) parameter is wrong",
                                             "or out of order"
-                                    ).asString(),
+                                    ),
                                     index + 1,
                                     val.name()
                             )
@@ -103,6 +103,17 @@ public final class ParsedSqlQuery implements Text {
                 ++index;
             }
         }
-    }
 
+        static void checkRange(final int valuesLength, final int fieldsLength) {
+            if (valuesLength != fieldsLength) {
+                throw new IllegalArgumentException(
+                        String.join(
+                                " ",
+                                "SQL amount of fields and values",
+                                "are different"
+                        )
+                );
+            }
+        }
+    }
 }
