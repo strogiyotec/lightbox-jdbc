@@ -8,11 +8,13 @@ import com.github.strogiyotec.lightbox.jdbc.stmnt.KeyedUpdate;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
 import com.github.strogiyotec.lightbox.jdbc.value.data.StringValue;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Iterator;
 import java.util.Map;
 
+@Ignore
 public final class InsertTest extends Assert {
 
     @Test

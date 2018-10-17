@@ -9,12 +9,14 @@ import com.github.strogiyotec.lightbox.jdbc.types.IntArrayType;
 import com.github.strogiyotec.lightbox.jdbc.types.JsonType;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.json.JsonObject;
 
 import static org.hamcrest.CoreMatchers.is;
 
+@Ignore
 public final class ResultAsCustomTypeTest extends Assert {
 
     @Test

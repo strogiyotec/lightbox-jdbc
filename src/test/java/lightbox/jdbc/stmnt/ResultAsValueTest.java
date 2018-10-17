@@ -10,8 +10,10 @@ import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import com.google.common.collect.Iterables;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public final class ResultAsValueTest extends Assert {
 
     @Test(expected = IllegalStateException.class)

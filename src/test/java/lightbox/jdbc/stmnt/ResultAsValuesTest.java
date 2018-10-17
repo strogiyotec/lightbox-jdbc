@@ -12,11 +12,12 @@ import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTable;
 import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
 
-
+@Ignore
 public final class ResultAsValuesTest extends Assert {
 
     @Test

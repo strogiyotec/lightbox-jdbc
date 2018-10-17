@@ -7,11 +7,13 @@ import com.github.strogiyotec.lightbox.jdbc.stmnt.Transaction;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
 import com.github.strogiyotec.lightbox.jdbc.value.data.IntValue;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+@Ignore
 public final class TransactionTest extends Assert {
 
     @Test()
@@ -53,7 +55,7 @@ public final class TransactionTest extends Assert {
         final Connection connection2 = session.connection();
         connection2.setAutoCommit(false);
         try (final Connection connection = session.connection()) {
-            try (final PreparedStatement st = connection.prepareStatement("insert into child (par_id) values (?)")) {
+            try (final PreparedStatement st = connection.prepareStatement("INSERT INTO child (par_id) VALUES (?)")) {
                 st.setInt(1, 146);
                 st.execute();
                 // connection.commit();
