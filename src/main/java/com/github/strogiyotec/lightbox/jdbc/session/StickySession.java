@@ -1,9 +1,9 @@
 package com.github.strogiyotec.lightbox.jdbc.session;
 
 import com.github.strogiyotec.lightbox.jdbc.Session;
-import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
+import java.util.concurrent.Callable;
 
 /**
  * Session of single connection
@@ -25,9 +25,9 @@ public final class StickySession implements Session {
         );
     }
 
-    public StickySession(final CheckedSupplier<Connection> connection) throws Exception {
+    public StickySession(final Callable<Connection> connection) throws Exception {
         this(
-                connection.get()
+                connection.call()
         );
     }
 
