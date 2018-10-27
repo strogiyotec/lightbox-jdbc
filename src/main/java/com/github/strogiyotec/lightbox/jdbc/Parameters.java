@@ -7,15 +7,6 @@ import java.sql.SQLException;
  * A set of Data values
  */
 public interface Parameters extends Iterable<Parameter<?>> {
-
-    /**
-     * Add a value into {@link Parameters}
-     *
-     * @param value to be added
-     * @return The new {@link Parameters}
-     */
-    Parameters with(Parameter<?> value);
-
     /**
      * Set the {@link PreparedStatement} with all data values
      *
@@ -26,7 +17,7 @@ public interface Parameters extends Iterable<Parameter<?>> {
     PreparedStatement prepare(PreparedStatement statement) throws SQLException;
 
     /**
-     * @return amount of parameters
+     * @return True if contains param with name in position
      */
-    int amount();
+    boolean contains(String name, int pos);
 }

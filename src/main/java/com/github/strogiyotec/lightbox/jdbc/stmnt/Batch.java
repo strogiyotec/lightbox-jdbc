@@ -4,6 +4,7 @@ import com.github.strogiyotec.lightbox.jdbc.Query;
 import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.Statement;
+import com.github.strogiyotec.lightbox.jdbc.query.BatchQuery;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public final class Batch implements Statement<int[]> {
      */
     private final Query query;
 
-    public Batch(final Session session, final Query query) {
+    public Batch(final Session session, final BatchQuery query) {
         this.session = session;
         this.query = query;
     }

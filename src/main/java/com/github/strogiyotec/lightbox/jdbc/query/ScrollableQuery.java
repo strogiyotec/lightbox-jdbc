@@ -40,7 +40,7 @@ public final class ScrollableQuery implements Query {
 
     public ScrollableQuery(final Text sql, final Parameter<?>... vals) {
         this.sql = new ParsedSqlQuery(sql, vals);
-        this.values = new CombinedParameters(vals);
+        this.values = new QueryParams(vals);
     }
 
     @Override

@@ -9,39 +9,33 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- * Combined data values
+ * Combined data params
  */
 @AllArgsConstructor
-public final class CombinedParameters implements Parameters {
+public final class QueryParams implements Parameters {
 
     /**
-     * Values
+     * Params
      */
-    private final List<Parameter<?>> values;
+    private final List<Parameter<?>> params;
 
 
-    public CombinedParameters(Parameter<?>... values) {
+    public QueryParams(Parameter<?>... values) {
         this(
                 Arrays.asList(values)
         );
     }
 
-    public CombinedParameters(Collection<Parameter<?>> values) {
+    public QueryParams(Collection<Parameter<?>> values) {
         this(
                 Collections.unmodifiableList(new ArrayList<>(values))
         );
     }
 
     @Override
-    public Parameters with(final Parameter<?> value) {
-        this.values.add(value);
-        return this;
-    }
-
-    @Override
     public PreparedStatement prepare(final PreparedStatement statement) throws SQLException {
         int index = 1;
-        for (final Parameter<?> value : this.values) {
+        for (final Parameter<?> value : this.params) {
             value.prepare(statement, index);
             ++index;
         }
@@ -50,12 +44,12 @@ public final class CombinedParameters implements Parameters {
     }
 
     @Override
-    public int amount() {
-        return this.values.size();
+    public boolean contains(final String name, final int pos) {
+        return this.params.get(pos).name().equals(name);
     }
 
     @Override
     public Iterator<Parameter<?>> iterator() {
-        return this.values.iterator();
+        return this.params.iterator();
     }
 }

@@ -3,7 +3,7 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.Parameter;
 import com.github.strogiyotec.lightbox.jdbc.Parameters;
 import com.github.strogiyotec.lightbox.jdbc.Query;
-import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedParameters;
+import com.github.strogiyotec.lightbox.jdbc.value.data.QueryParams;
 import lombok.AllArgsConstructor;
 import org.jakarta.Text;
 
@@ -35,7 +35,7 @@ public final class SimpleQuery implements Query {
 
     public SimpleQuery(final Text sql, final Parameter<?>... vals) {
         this.sql = new ParsedSqlQuery(sql, vals);
-        this.values = new CombinedParameters(vals);
+        this.values = new QueryParams(vals);
     }
 
 

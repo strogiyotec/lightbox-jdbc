@@ -2,14 +2,14 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 
 import com.github.strogiyotec.lightbox.jdbc.Parameter;
 import com.github.strogiyotec.lightbox.jdbc.Parameters;
-import com.github.strogiyotec.lightbox.jdbc.value.data.CombinedParameters;
+import com.github.strogiyotec.lightbox.jdbc.value.data.QueryParams;
 import org.apache.commons.lang3.StringUtils;
-import org.jakarta.ChekedBiConsumer;
 import org.jakarta.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +26,7 @@ public final class ParsedSqlQuery implements Text {
     /**
      * Sql format checker
      */
-    private static final ChekedBiConsumer<Parameters, List<String>> checkedSql = new ValidSqlFormat();
+    private static final BiConsumer<Parameters, List<String>> checkedSql = new ValidSqlFormat();
 
     /**
      * Sql query
@@ -38,13 +38,13 @@ public final class ParsedSqlQuery implements Text {
     }
 
     public ParsedSqlQuery(final String text, Parameter<?>... values) {
-        this(() -> text, new CombinedParameters(values));
+        this(() -> text, new QueryParams(values));
     }
 
     public ParsedSqlQuery(final Text text, Parameter<?>... values) {
         this(
                 text,
-                new CombinedParameters(values)
+                new QueryParams(values)
         );
     }
 
@@ -80,39 +80,20 @@ public final class ParsedSqlQuery implements Text {
     /**
      * Validate given Sql
      */
-    private static final class ValidSqlFormat implements ChekedBiConsumer<Parameters, List<String>> {
+    private static final class ValidSqlFormat implements BiConsumer<Parameters, List<String>> {
 
         @Override
-        public void accept(final Parameters values, final List<String> fields) throws Exception {
-            checkRange(values.amount(), fields.size());
+        public void accept(final Parameters params, final List<String> fields) {
             int index = 0;
-            for (final Parameter<?> val : values) {
-                if (!val.name().equals(fields.get(index))) {
+            for (int i = 0; i < fields.size(); i++) {
+                if (!params.contains(fields.get(i), i)) {
                     throw new IllegalArgumentException(
                             String.format(
-                                    String.join(
-                                            " ",
-                                            "SQL #%d (%s) parameter is wrong",
-                                            "or out of order"
-                                    ),
-                                    index + 1,
-                                    val.name()
+                                    "SQL parameter #%d is wrong or out of order",
+                                    index + 1
                             )
                     );
                 }
-                ++index;
-            }
-        }
-
-        static void checkRange(final int valuesLength, final int fieldsLength) {
-            if (valuesLength != fieldsLength) {
-                throw new IllegalArgumentException(
-                        String.join(
-                                " ",
-                                "SQL amount of fields and values",
-                                "are different"
-                        )
-                );
             }
         }
     }

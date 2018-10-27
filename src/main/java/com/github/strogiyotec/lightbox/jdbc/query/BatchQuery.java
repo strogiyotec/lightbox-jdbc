@@ -13,25 +13,23 @@ public final class BatchQuery implements Query {
 
     private final Text query;
 
-    private final List<Parameters> values;
+    private final List<Parameters> params;
 
-    public BatchQuery(final Text query, final List<Parameters> values) {
-        this.query = new ParsedSqlQuery(query, values.get(0));
-        this.values = values;
+    public BatchQuery(final Text query, final Parameters... values) {
+        this.query = new ParsedSqlQuery(query, values[0]);
+        this.params = Arrays.asList(values);
     }
 
     public BatchQuery(final String query, final Parameters... dataValues) {
-        this(
-                () -> query,
-                Arrays.asList(dataValues)
-        );
+        this.query = new ParsedSqlQuery(query, dataValues[0]);
+        this.params = Arrays.asList(dataValues);
     }
 
 
     @Override
     public PreparedStatement prepared(final Connection connection) throws Exception {
         final PreparedStatement statement = connection.prepareStatement(this.query.asString());
-        for (final Parameters vals : this.values) {
+        for (final Parameters vals : this.params) {
             vals.prepare(statement);
             statement.addBatch();
         }
