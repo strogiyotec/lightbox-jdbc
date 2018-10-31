@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
  */
 public final class DateTimeValue implements Parameter<LocalDateTime> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final LocalDateTime val;
 

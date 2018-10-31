@@ -15,12 +15,12 @@ import java.util.Map;
 public final class JsonValue implements Parameter<JsonObject> {
 
     /**
-     * Value
+     * Column
      */
     private final String name;
 
     /**
-     * Value
+     * Column
      */
     private final JsonObject value;
 

@@ -13,12 +13,12 @@ import java.sql.SQLException;
  */
 public final class DoubleValue implements Parameter<Double> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final Double val;
 

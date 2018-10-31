@@ -23,7 +23,7 @@ public interface JoinedTables {
      *
      * @param mainTable       table which is mainTable
      * @param fieldName       field name
-     * @param fieldValue      field Value
+     * @param fieldValue      field Column
      * @param joinedTableName joined table name
      */
     void add(Map<String, Object> mainTable, String fieldName, Object fieldValue, String joinedTableName);

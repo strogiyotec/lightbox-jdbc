@@ -13,12 +13,12 @@ import java.sql.SQLException;
  */
 public final class IntValue implements Parameter<Integer> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final Integer val;
 

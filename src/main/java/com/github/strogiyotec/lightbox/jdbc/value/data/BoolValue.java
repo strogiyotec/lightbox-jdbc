@@ -11,12 +11,12 @@ import java.sql.SQLException;
  */
 public final class BoolValue implements Parameter<Boolean> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final Boolean val;
 

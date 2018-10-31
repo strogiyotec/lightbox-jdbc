@@ -13,12 +13,12 @@ import java.sql.SQLException;
  */
 public final class LongValue implements Parameter<Long> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final Long val;
 

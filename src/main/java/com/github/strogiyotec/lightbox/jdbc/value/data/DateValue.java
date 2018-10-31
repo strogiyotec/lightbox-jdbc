@@ -14,12 +14,12 @@ import java.time.LocalDate;
  */
 public final class DateValue implements Parameter<LocalDate> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final LocalDate val;
 

@@ -11,12 +11,12 @@ import java.sql.SQLException;
  */
 public final class AnyValue implements Parameter<Object> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final Object val;
 

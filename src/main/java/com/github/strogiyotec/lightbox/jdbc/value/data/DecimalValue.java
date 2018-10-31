@@ -14,12 +14,12 @@ import java.sql.SQLException;
  */
 public final class DecimalValue implements Parameter<BigDecimal> {
     /**
-     * Value.
+     * Column.
      */
     private final String nam;
 
     /**
-     * Value.
+     * Column.
      */
     private final BigDecimal val;
 
