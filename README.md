@@ -254,3 +254,38 @@ final SimpleQuery query = new SimpleQuery("select * from people");
 ```
 In this way you will log close,open methods of Connection class and
 all sqlExecution with executed sql query and time if execution in millis
+
+Some times you need to map your ResultSet to POJO , I don't like ORM,
+instead I suggest to use [SQL-Speaking Objects](https://www.yegor256.com/2014/12/01/orm-offensive-anti-pattern.html),
+Example:
+We declare Sql-Speaking Object
+```groovy
+
+interface User extends SqlObject {
+        @Column(name = "name", nullable = false)
+        String name();
+
+        @Column(name = "id", nullable = false)
+        int id();
+    }
+    
+    
+```
+Then we can map ResultSet to this object
+```java
+public void simpleBindTest() throws Exception {
+        final User user = new RowsAsSqlObject<>(
+                new Select(
+                        postgres,
+                        new SimpleQuery(
+                                "SELECT * FROM simpleBindTest where id = :id",
+                                new IntValue("id", 1)
+                        )
+                ),
+                User.class
+        ).get();
+
+        assertThat(user.name(), is("Almas"));
+        assertThat(user.id(), is(1));
+    }
+```
