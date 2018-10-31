@@ -12,7 +12,7 @@ This is how you do select statement using lightbox-jdbc
 ```groovy
  final Session postgresSession = new DriverSession("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123");
  final Statement<Rows> select = new Select(postgres, new SimpleQuery("select * from movie where id=:id",new IntValue("id",1)));
- final Rows maps = select.result().get();
+ final Rows maps = select.result().call();
  maps.forEach(map -> map.forEach((k, v) -> System.out.println(k + " " + v)));
 ```
 
@@ -33,7 +33,7 @@ This is how you select single property from DB
                                             new SimpleQuery(
                                                 "select id from movie where id = 2")
                                             ),
-                                     Integer.class).result().get();
+                                     Integer.class).result().call();
         System.out.println(result);
 
 ```
@@ -46,7 +46,7 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                 new Select(
                         postgres,
                         new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id where m.id = :id",new IntValue("id",1))
-                ).result().get().iterator().next()
+                ).result().call().iterator().next()
         );
         System.out.println(jsonValueOf);
 
@@ -64,7 +64,7 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                 new Select(
                         postgres,
                         new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id")
-                ).result().get()
+                ).result().call()
         );
         System.out.println(jsonValuesOf);
 ```
@@ -85,7 +85,7 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                                 new StringValue("name", "Almas"),
                                 new StringValue("password", "qwerty"))
                         );
-        final Integer res = insert.result().get();
+        final Integer res = insert.result().call();
 ```
 In this way you will receive int value which show how many rows were effected by your query or ```0``` if noone
 
@@ -121,7 +121,7 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                         new KeyedQuery("delete from child where par_id = 2 returning *")
         
                 );
-        final Iterator<Map<String, Object>> iterator = deleteWithKeys.result().get().iterator();
+        final Iterator<Map<String, Object>> iterator = deleteWithKeys.result().call().iterator();
         while(iterator.hasNext()){
             iterator.next().forEach((k,v)-> System.out.println(k+" "+v));
         }
@@ -143,7 +143,7 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                 ),
                 new JsonType()
         );
-        final JsonObject jsonObject = select.result().get();
+        final JsonObject jsonObject = select.result().call();
         assertThat(jsonObject.getString("name"),is("Almas"));
 ```
 
@@ -205,7 +205,7 @@ final Session postgres = new DriverSession("jdbc:postgresql://127.0.0.1:5432/tes
                 new SimpleQuery("select m.* , mi.* from movie m inner join movie_info mi on m.id = mi.movie_id"),
                 new JoinTables(new JoinTable("movie_info"))
         );
-        final Rows maps = movie_info.result().get();
+        final Rows maps = movie_info.result().call();
         System.out.println(new JsonValuesOf(maps));
 ``` 
 
