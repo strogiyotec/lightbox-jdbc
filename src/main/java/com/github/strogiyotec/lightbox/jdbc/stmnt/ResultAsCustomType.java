@@ -31,7 +31,7 @@ public final class ResultAsCustomType<T> implements Statement<T> {
                 this.origin,
                 Object.class
         );
-        final Object result = value.result().get();
+        final Object result = value.result().call();
         return () -> this.mapper.apply(result);
     }
 }

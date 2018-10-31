@@ -35,7 +35,7 @@ public final class ResultAsValue<T> implements Statement<T> {
 
     @Override
     public Result<T> result() throws Exception {
-        final Rows result = this.origin.result().get();
+        final Rows result = this.origin.result().call();
         checkRowsOnEmpty(result);
         final Map<String, Object> value = result.iterator().next();
         return () ->

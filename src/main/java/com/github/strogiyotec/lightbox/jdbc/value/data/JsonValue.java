@@ -15,7 +15,7 @@ import java.util.Map;
 public final class JsonValue implements Parameter<JsonObject> {
 
     /**
-     * Name
+     * Value
      */
     private final String name;
 

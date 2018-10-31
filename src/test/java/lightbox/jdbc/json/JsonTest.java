@@ -62,7 +62,7 @@ public final class JsonTest {
                 ),
                 new JsonType()
         );
-        assertThat(json.result().get().getString("name"), is("Almas"));
+        assertThat(json.result().call().getString("name"), is("Almas"));
     }
 
     @Test
@@ -81,7 +81,7 @@ public final class JsonTest {
                         new IntValue("id", 10)
                 )
         ).result();
-        assertTrue(result.get() == 1);
+        assertTrue(result.call() == 1);
     }
 
     @Test
@@ -93,6 +93,6 @@ public final class JsonTest {
                 ),
                 new JsonType()
         );
-        assertFalse(json.result().get().getJsonArray("phones").isEmpty());
+        assertFalse(json.result().call().getJsonArray("phones").isEmpty());
     }
 }

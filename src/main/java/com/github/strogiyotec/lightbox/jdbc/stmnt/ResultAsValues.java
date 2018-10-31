@@ -21,7 +21,7 @@ public final class ResultAsValues<T> implements Statement<List<T>> {
 
     @Override
     public Result<List<T>> result() throws Exception {
-        final Rows rows = this.origin.result().get();
+        final Rows rows = this.origin.result().call();
         return () -> this.valuesFromIterator(rows.iterator());
     }
 

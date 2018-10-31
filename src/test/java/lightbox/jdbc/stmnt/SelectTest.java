@@ -62,7 +62,7 @@ public final class SelectTest extends Assert {
                 new Select(
                         postgres,
                         new SimpleQuery("SELECT * from testSelect")
-                ).result().get()
+                ).result().call()
         ).iterator();
         iterator.forEachRemaining(user -> assertTrue(!user.name().isEmpty()));
     }
@@ -73,6 +73,6 @@ public final class SelectTest extends Assert {
                 postgres,
                 new SimpleQuery("SELECT * from testSelect where id = 10")
         ).result();
-        assertTrue(Lists.newArrayList(result.get()).isEmpty());
+        assertTrue(Lists.newArrayList(result.call()).isEmpty());
     }
 }

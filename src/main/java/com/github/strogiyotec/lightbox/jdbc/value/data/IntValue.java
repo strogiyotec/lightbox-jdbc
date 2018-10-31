@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public final class IntValue implements Parameter<Integer> {
     /**
-     * Name.
+     * Value.
      */
     private final String nam;
 

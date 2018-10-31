@@ -33,7 +33,7 @@ public final class LogSqlTest extends Assert {
                 new LogStatementsOf(LogStatements.CONNECTION, LogStatements.RESULT_SET)
         );
         final Select select = new Select(postgres, query);
-        final JsonArray jsonValues = new JsonValuesOf(select.result().get());
+        final JsonArray jsonValues = new JsonValuesOf(select.result().call());
         assertTrue(jsonValues.size() != 0);
     }
 }

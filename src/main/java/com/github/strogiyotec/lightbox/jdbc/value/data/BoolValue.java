@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public final class BoolValue implements Parameter<Boolean> {
     /**
-     * Name.
+     * Value.
      */
     private final String nam;
 

@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public final class DecimalValue implements Parameter<BigDecimal> {
     /**
-     * Name.
+     * Value.
      */
     private final String nam;
 

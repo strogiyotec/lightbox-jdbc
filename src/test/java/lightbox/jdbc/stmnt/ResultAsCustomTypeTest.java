@@ -60,7 +60,7 @@ public final class ResultAsCustomTypeTest extends Assert {
                         )
                 ), new JsonType()
         );
-        final JsonObject jsonObject = select.result().get();
+        final JsonObject jsonObject = select.result().call();
         assertThat(jsonObject.getString("name"), is("Almas"));
     }
 }

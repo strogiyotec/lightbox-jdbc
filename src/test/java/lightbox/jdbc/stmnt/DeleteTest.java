@@ -66,7 +66,7 @@ public final class DeleteTest extends Assert {
                         new StringValue("name", "Almas")
                 )
         ).result();
-        assertThat(result.get(), is(1));
+        assertThat(result.call(), is(1));
     }
 
     @Test
@@ -78,7 +78,7 @@ public final class DeleteTest extends Assert {
                         new StringValue("name", "HELLO")
                 )
         ).result();
-        assertThat(result.get(), is(0));
+        assertThat(result.call(), is(0));
     }
 
     @Test
@@ -91,7 +91,7 @@ public final class DeleteTest extends Assert {
                                 new StringValue("name", "Murat")
                         )
 
-                ).result().get()
+                ).result().call()
         );
         assertTrue(!jsonValues.isEmpty());
         assertThat(jsonValues.get(0).asJsonObject().getString("name"), is("Murat"));

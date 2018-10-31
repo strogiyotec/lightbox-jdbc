@@ -56,7 +56,7 @@ public final class BatchQueryTest extends Assert {
                                 new StringValue("name","Almas")
                         )
                 )
-        ).result().get();
+        ).result().call();
         assertTrue(rows.length == 2);
     }
 }

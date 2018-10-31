@@ -14,7 +14,7 @@ import java.time.LocalDate;
  */
 public final class DateValue implements Parameter<LocalDate> {
     /**
-     * Name.
+     * Value.
      */
     private final String nam;
 

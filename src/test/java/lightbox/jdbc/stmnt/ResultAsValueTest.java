@@ -66,7 +66,7 @@ public final class ResultAsValueTest extends Assert {
 
         );
         final Result<String> result = id.result();
-        assertTrue(result.get() != null);
+        assertTrue(result.call() != null);
     }
 
     @Test
@@ -82,7 +82,7 @@ public final class ResultAsValueTest extends Assert {
 
         );
         final Result<Integer> result = id.result();
-        assertTrue(result.get() == 1);
+        assertTrue(result.call() == 1);
     }
 
     @Test(expected = ClassCastException.class)
@@ -98,6 +98,6 @@ public final class ResultAsValueTest extends Assert {
 
         );
         final Result<String> result = id.result();
-        assertTrue(result.get() != null);
+        assertTrue(result.call() != null);
     }
 }

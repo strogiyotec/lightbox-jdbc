@@ -35,11 +35,11 @@ public final class TransactionTest extends Assert {
                                     new IntValue("id", 212)
                             )
                     );
-                    return id.result().get();
+                    return id.result().call();
                 }
         );
 
-        final Integer integer = transaction.result().get();
+        final Integer integer = transaction.result().call();
         assertTrue(integer != null);
     }
 

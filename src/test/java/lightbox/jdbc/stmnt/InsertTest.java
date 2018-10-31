@@ -73,7 +73,7 @@ public final class InsertTest extends Assert {
                         new StringValue("name", "Almas")
                 )
         );
-        final Integer res = insert.result().get();
+        final Integer res = insert.result().call();
         assertTrue(res == 1);
     }
 
@@ -90,7 +90,7 @@ public final class InsertTest extends Assert {
                         new StringValue("name", "Almas")
                 )
         );
-        final Iterator<Map<String, Object>> iterator = insert.result().get().iterator();
+        final Iterator<Map<String, Object>> iterator = insert.result().call().iterator();
 
         assertTrue(iterator.hasNext());
 

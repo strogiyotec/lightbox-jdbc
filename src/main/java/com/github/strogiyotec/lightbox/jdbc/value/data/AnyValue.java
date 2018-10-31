@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public final class AnyValue implements Parameter<Object> {
     /**
-     * Name.
+     * Value.
      */
     private final String nam;
 

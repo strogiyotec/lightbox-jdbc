@@ -65,7 +65,7 @@ public final class ResultAsValuesTest extends Assert {
                 ),
                 Integer.class
         );
-        final List<Integer> ids = id.result().get();
+        final List<Integer> ids = id.result().call();
         assertTrue(!ids.isEmpty());
     }
 
@@ -80,7 +80,7 @@ public final class ResultAsValuesTest extends Assert {
                 ),
                 String.class
         );
-        final List<String> ids = id.result().get();
+        final List<String> ids = id.result().call();
         assertTrue(!ids.isEmpty());
     }
 
@@ -96,7 +96,7 @@ public final class ResultAsValuesTest extends Assert {
                 ),
                 Integer.class
         );
-        final List<Integer> ids = id.result().get();
+        final List<Integer> ids = id.result().call();
         assertTrue(ids.isEmpty());
     }
 }
