@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * Abstract Connection that encapsulate origin connection
  */
 @SuppressWarnings("PMD")
-public abstract class ConnectionOf implements Connection {
+abstract class ConnectionOf implements Connection {
 
     /**
      * Origin connection

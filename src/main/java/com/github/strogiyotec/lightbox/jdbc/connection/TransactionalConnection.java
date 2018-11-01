@@ -10,7 +10,6 @@ import java.util.function.Supplier;
 /**
  * Represent a connection which is closed only when
  * {@link #origin}  commit or rollback method called
- * Package friendly to avoid usage without transaction
  */
 @Slf4j
 public final class TransactionalConnection extends ConnectionOf {
@@ -47,6 +46,7 @@ public final class TransactionalConnection extends ConnectionOf {
     }
 
     @Override
+    @Deprecated
     public void close() throws SQLException {
         //do nothing
     }

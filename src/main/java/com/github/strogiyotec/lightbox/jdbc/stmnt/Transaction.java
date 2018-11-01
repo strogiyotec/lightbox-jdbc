@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
  */
 public final class Transaction<T> implements Statement<T> {
 
-    private final Session session;
+    private final Session callback;
 
     private final Callable<T> supplier;
 
@@ -26,26 +26,26 @@ public final class Transaction<T> implements Statement<T> {
      */
     private final List<Class<? extends Throwable>> exceptions;
 
-    public Transaction(final TransactedSession session,
-                       final Callable<T> supplier,
-                       final List<Class<? extends Throwable>> exceptions) {
-        this.session = session;
+    public Transaction(final List<Class<? extends Throwable>> exceptions,
+                       final TransactedSession session,
+                       final Callable<T> supplier) {
+        this.callback = session;
         this.supplier = supplier;
         this.exceptions = exceptions;
     }
 
     public Transaction(final TransactedSession session,
-                       final Callable<T> supplier) {
+                       final Callable<T> callback) {
         this(
+                Collections.singletonList(Exception.class),
                 session,
-                supplier,
-                Collections.singletonList(Exception.class)
+                callback
         );
     }
 
     @Override
     public Result<T> result() throws Exception {
-        final Connection connection = this.session.connection();
+        final Connection connection = this.callback.connection();
         try {
             final T result = this.supplier.call();
             connection.commit();
@@ -63,6 +63,6 @@ public final class Transaction<T> implements Statement<T> {
     private boolean support(final Exception exc) {
         return this.exceptions
                 .stream()
-                .anyMatch(e -> e.equals(exc.getClass()));
+                .anyMatch(e -> e.equals(exc.getClass()) || e.isAssignableFrom(exc.getClass()));
     }
 }

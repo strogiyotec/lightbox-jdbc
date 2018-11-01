@@ -2,6 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.session;
 
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.connection.TransactionalConnection;
+import org.jakarta.sticky.StickyCallable;
 
 import java.sql.Connection;
 import java.util.concurrent.Callable;
@@ -14,10 +15,10 @@ public final class TransactedSession implements Session {
     /**
      * Origin
      */
-    private final Session origin;
+    private final Callable<Connection> connection;
 
     public TransactedSession(final Session origin) throws Exception {
-        this.origin = new StickySession((Callable<Connection>) () -> {
+        this.connection = new StickyCallable<>(() -> {
             final Connection connection = origin.connection();
             connection.setAutoCommit(false);
             return new TransactionalConnection(connection);
@@ -26,6 +27,6 @@ public final class TransactedSession implements Session {
 
     @Override
     public Connection connection() throws Exception {
-        return this.origin.connection();
+        return this.connection.call();
     }
 }
