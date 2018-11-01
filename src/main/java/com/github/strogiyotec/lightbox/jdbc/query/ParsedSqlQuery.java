@@ -3,7 +3,6 @@ package com.github.strogiyotec.lightbox.jdbc.query;
 import com.github.strogiyotec.lightbox.jdbc.Parameter;
 import com.github.strogiyotec.lightbox.jdbc.Parameters;
 import com.github.strogiyotec.lightbox.jdbc.value.data.QueryParams;
-import org.apache.commons.lang3.StringUtils;
 import org.jakarta.Text;
 
 import java.util.ArrayList;
@@ -64,7 +63,8 @@ public final class ParsedSqlQuery implements Text {
      * @return List of all matched patterns
      */
     private static List<String> combineSqlMatchers(final String str) {
-        final List<String> fields = new ArrayList<>(StringUtils.countMatches(str, ':'));
+
+        final List<String> fields = new ArrayList<>((int) str.chars().filter(ch -> ch == ':').count());
         final Matcher matcher = SQL_PATTERN.matcher(str);
         while (matcher.find()) {
             fields.add(matcher.group(1));
