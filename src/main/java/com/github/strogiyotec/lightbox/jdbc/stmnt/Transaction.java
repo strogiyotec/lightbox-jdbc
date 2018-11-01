@@ -4,11 +4,11 @@ import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.Statement;
 import com.github.strogiyotec.lightbox.jdbc.session.TransactedSession;
-import org.jakarta.CheckedSupplier;
 
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * DML query with Transaction
@@ -19,7 +19,7 @@ public final class Transaction<T> implements Statement<T> {
 
     private final Session session;
 
-    private final CheckedSupplier<T> supplier;
+    private final Callable<T> supplier;
 
     /**
      * List of supported exceptions for rollback
@@ -27,7 +27,7 @@ public final class Transaction<T> implements Statement<T> {
     private final List<Class<? extends Throwable>> exceptions;
 
     public Transaction(final TransactedSession session,
-                       final CheckedSupplier<T> supplier,
+                       final Callable<T> supplier,
                        final List<Class<? extends Throwable>> exceptions) {
         this.session = session;
         this.supplier = supplier;
@@ -35,7 +35,7 @@ public final class Transaction<T> implements Statement<T> {
     }
 
     public Transaction(final TransactedSession session,
-                       final CheckedSupplier<T> supplier) {
+                       final Callable<T> supplier) {
         this(
                 session,
                 supplier,
@@ -47,7 +47,7 @@ public final class Transaction<T> implements Statement<T> {
     public Result<T> result() throws Exception {
         final Connection connection = this.session.connection();
         try {
-            final T result = this.supplier.get();
+            final T result = this.supplier.call();
             connection.commit();
             return () -> result;
         } catch (final Exception exc) {
