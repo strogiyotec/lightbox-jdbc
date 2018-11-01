@@ -289,3 +289,53 @@ public void simpleBindTest() throws Exception {
         assertThat(user.id(), is(1));
     }
 ```
+
+This is an example how you can execute transaction
+```groovy
+
+final TransactedSession session = new TransactedSession(postgres);
+        try {
+            new Transaction<>(
+                    session,
+                    () -> {
+                        new Update(
+                                session,
+                                new SimpleQuery(
+                                        "insert into testTransaction (name,login) values (:name,:login)",
+                                        new StringValue("name", "Almas"),
+                                        new StringValue("login", "almas")
+                                )
+                        ).result();
+                        new Update(
+                                session,
+                                new SimpleQuery(
+                                        "insert into testTransaction (name,login) values (:name,:login)",
+                                        new StringValue("name", "Almas"),
+                                        new StringValue("login", "almas")
+                                )
+                        ).result();
+                        return true;
+                    }
+            ).result();
+        } catch (final Exception exc) {
+            final Iterator<Map<String, Object>> iterator = new Select(
+                    postgres,
+                    new SimpleQuery(
+                            String.join(
+                                    " ",
+                                    "SELECT * from testTransaction",
+                                    "where login = :login"
+                            ),
+                            new StringValue("login", "Almas")
+                    )
+            ).result().call().iterator();
+
+            assertThat(iterator.hasNext(), is(false));
+
+        }
+```
+Here you create TransactionSession and pass Callback to Transaction object , remember, all 
+code which use Database inside call back must to use the same instance of TransactionalSession
+Optionally you can provide a list of supported exception,
+if exception appeared and it's not in this list, all your statements would be
+commited. By default Transaction is rolled back if type of Exception has appeared 
