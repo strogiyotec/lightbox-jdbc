@@ -4,22 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 
-public interface JoinedTables {
+public interface Tables {
 
     /**
      * @param name of table
-     * @return true if contain Table with given name
+     * @return true if contains Table with given name
      */
     boolean contain(String name);
 
     /**
-     * @return names of joined tables
+     * @return list of tables names
      */
     List<String> names();
 
     /**
-     * This method add field of the joined table to mainTable table
-     * Data structure of joined table field depend on implementation
+     * Add field to table inside another table (For example if you use join)
      *
      * @param mainTable       table which is mainTable
      * @param fieldName       field name

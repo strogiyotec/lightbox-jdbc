@@ -1,7 +1,7 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
-import com.github.strogiyotec.lightbox.jdbc.JoinedTables;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
+import com.github.strogiyotec.lightbox.jdbc.Tables;
 import com.google.common.collect.Lists;
 
 import java.sql.ResultSet;
@@ -12,20 +12,20 @@ import java.util.*;
 /**
  * Join tables into one Row
  */
-public final class JoinRows implements Rows {
+public final class JoinedRows implements Rows {
 
     /**
      * Fetched rows
      */
     private final List<Map<String, Object>> rows;
 
-    public JoinRows(final ResultSet rs, final JoinedTables tables) throws Exception {
+    public JoinedRows(final ResultSet rs, final Tables tables) throws Exception {
         final ResultSetMetaData metaData = rs.getMetaData();
         final int columns = metaData.getColumnCount();
-        final List<Map<String, Object>> resultRows = new ArrayList<>();
+        final List<Map<String, Object>> resultRows = new ArrayList<>(10);
         while (rs.next()) {
-            final Map<String, Object> row = JoinRows.singleRow(columns, rs, metaData, tables);
-            if (!JoinRows.shouldSkipRow(resultRows, new HashMap<>(row), tables)) {
+            final Map<String, Object> row = JoinedRows.singleRow(columns, rs, metaData, tables);
+            if (!JoinedRows.shouldSkipRow(resultRows, new HashMap<>(row), tables)) {
                 resultRows.add(row);
             }
         }
@@ -34,21 +34,21 @@ public final class JoinRows implements Rows {
 
     /**
      * This method retrieve field from database
-     * Check does field belong tio joined tables
+     * Check does field belong to joined tables
      * if so add this field to joined table,
-     * Otherwise, add this field to row as single key value
+     * Otherwise, add this field to main table
      *
      * @param columns  columns number
-     * @param rs       Result set
-     * @param metaData Result set metadata
-     * @param tables   Joined tables
+     * @param rs       {@link ResultSet}
+     * @param metaData {@link ResultSetMetaData}
+     * @param tables   {@link com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables}
      * @return singleRow with all fields
      * @throws SQLException if failed
      */
     private static Map<String, Object> singleRow(final int columns,
                                                  final ResultSet rs,
                                                  final ResultSetMetaData metaData,
-                                                 final JoinedTables tables) throws SQLException {
+                                                 final Tables tables) throws SQLException {
         final Map<String, Object> row = new LinkedHashMap<>(columns, 1.0f);
         for (int i = 1; i <= columns; i++) {
             final String tableName = metaData.getTableName(i);
@@ -72,15 +72,15 @@ public final class JoinRows implements Rows {
      */
     private static boolean shouldSkipRow(final List<Map<String, Object>> rows,
                                          final Map<String, Object> newRow,
-                                         final JoinedTables tables) {
+                                         final Tables tables) {
         boolean shouldSkip = false;
         if (!rows.isEmpty()) {
             for (int i = 0; i < rows.size(); i++) {
                 final Map<String, Object> oldRow = rows.get(i);
-                final boolean rowsEquals = JoinRows.rowsEquals(oldRow, tables, newRow);
+                final boolean rowsEquals = JoinedRows.rowsEquals(oldRow, tables, newRow);
                 if (rowsEquals) {
                     shouldSkip = true;
-                    JoinRows.addJoinedRow(tables, oldRow, newRow);
+                    JoinedRows.addJoinedRow(tables, oldRow, newRow);
                 }
             }
         }
@@ -101,7 +101,7 @@ public final class JoinRows implements Rows {
      * @param newRow new oldRow
      * @return true if old row and new Rows are equal
      */
-    private static boolean rowsEquals(final Map<String, Object> oldRow, final JoinedTables tables, final Map<String, Object> newRow) {
+    private static boolean rowsEquals(final Map<String, Object> oldRow, final Tables tables, final Map<String, Object> newRow) {
         boolean rowsEquals = true;
         for (final String key : oldRow.keySet()) {
             if (!tables.contain(key)) {
@@ -128,7 +128,9 @@ public final class JoinRows implements Rows {
      * @param oldRow old row
      * @param newRow new row
      */
-    private static void addJoinedRow(final JoinedTables tables, final Map<String, Object> oldRow, final Map<String, Object> newRow) {
+    private static void addJoinedRow(final Tables tables,
+                                     final Map<String, Object> oldRow,
+                                     final Map<String, Object> newRow) {
         final List<String> names = tables.names();
         for (final String name : names) {
             final Object field = oldRow.get(name);
