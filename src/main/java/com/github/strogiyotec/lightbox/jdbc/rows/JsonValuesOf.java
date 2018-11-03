@@ -1,5 +1,6 @@
 package com.github.strogiyotec.lightbox.jdbc.rows;
 
+import com.github.strogiyotec.lightbox.jdbc.Result;
 import com.github.strogiyotec.lightbox.jdbc.Rows;
 
 import javax.json.Json;
@@ -23,6 +24,10 @@ public final class JsonValuesOf extends JsonArrayResource {
             }
             return arrayBuilder.build();
         });
+    }
+
+    public JsonValuesOf(final Result<Rows> result) throws Exception {
+        this(result.call());
     }
 
     public JsonValuesOf(final Iterator<Map<String, Object>> rows) {
