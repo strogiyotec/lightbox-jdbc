@@ -3,6 +3,8 @@ package com.github.strogiyotec.lightbox.jdbc.script;
 import com.github.strogiyotec.lightbox.jdbc.Script;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
+import com.github.strogiyotec.lightbox.jdbc.session.TransactedSession;
+import com.github.strogiyotec.lightbox.jdbc.stmnt.Transaction;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Update;
 import com.google.common.collect.Lists;
 
@@ -42,11 +44,17 @@ public final class SqlScript implements Script {
 
     @Override
     public void execute() throws Exception {
-        for (final String script : scripts) {
-            new Update(
-                    this.session,
-                    new SimpleQuery(script)
-            ).result();
-        }
+        final TransactedSession transactedSession = new TransactedSession(this.session);
+        new Transaction<>(transactedSession, () -> {
+            int cnt = 0;
+            for (final String script : scripts) {
+                new Update(
+                        transactedSession,
+                        new SimpleQuery(script)
+                ).result();
+                cnt++;
+            }
+            return cnt;
+        }).result();
     }
 }
