@@ -20,7 +20,7 @@ import java.util.Map;
                 "checkstyle:ImportOrderCheck"
         }
 )
-public final class EmptyResultSet implements ResultSet {
+final class EmptyResultSet implements ResultSet {
 
     public static final ResultSet EMPTY_RS = new EmptyResultSet();
 
