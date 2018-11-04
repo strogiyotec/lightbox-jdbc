@@ -3,7 +3,6 @@ package lightbox.jdbc.stmnt;
 import com.github.strogiyotec.lightbox.jdbc.Session;
 import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.script.SqlScript;
-import com.github.strogiyotec.lightbox.jdbc.session.DriverSession;
 import com.github.strogiyotec.lightbox.jdbc.session.TransactedSession;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Select;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Transaction;
@@ -12,8 +11,6 @@ import com.github.strogiyotec.lightbox.jdbc.value.data.StringValue;
 import lightbox.jdbc.fake.FakeDatabaseSession;
 import org.junit.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -168,24 +165,5 @@ public final class TransactionTest extends Assert {
         ).result().call().iterator();
 
         assertThat(iterator.hasNext(), is(true));
-    }
-
-    @Test()
-    public void transactionNative() throws Exception {
-        final TransactedSession session = new TransactedSession(
-                new DriverSession(
-                        "jdbc:postgresql://127.0.0.1:5432/test",
-                        "postgres",
-                        "123"
-                )
-        );
-        final Connection connection2 = session.connection();
-        connection2.setAutoCommit(false);
-        try (final Connection connection = session.connection()) {
-            try (final PreparedStatement st = connection.prepareStatement("INSERT INTO child (par_id) VALUES (?)")) {
-                st.setInt(1, 146);
-                st.execute();
-            }
-        }
     }
 }
