@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface Tables {
 
+
     /**
      * @param name of table
      * @return true if contains Table with given name
