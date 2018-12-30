@@ -5,7 +5,7 @@ import com.github.strogiyotec.lightbox.jdbc.query.SimpleQuery;
 import com.github.strogiyotec.lightbox.jdbc.rows.JsonValuesOf;
 import com.github.strogiyotec.lightbox.jdbc.script.SqlScript;
 import com.github.strogiyotec.lightbox.jdbc.stmnt.Join;
-import com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables;
+import com.github.strogiyotec.lightbox.jdbc.join.JoinTables;
 import lightbox.jdbc.fake.FakeDatabaseSession;
 import org.junit.AfterClass;
 import org.junit.Assert;

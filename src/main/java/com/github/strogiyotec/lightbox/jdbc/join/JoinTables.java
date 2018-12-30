@@ -1,4 +1,4 @@
-package com.github.strogiyotec.lightbox.jdbc.value.join;
+package com.github.strogiyotec.lightbox.jdbc.join;
 
 import com.github.strogiyotec.lightbox.jdbc.Tables;
 import org.jakarta.collections.MutableMapOf;

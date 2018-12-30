@@ -2,6 +2,7 @@ package com.github.strogiyotec.lightbox.jdbc.rows;
 
 import com.github.strogiyotec.lightbox.jdbc.Rows;
 import com.github.strogiyotec.lightbox.jdbc.Tables;
+import com.github.strogiyotec.lightbox.jdbc.join.JoinTables;
 import com.google.common.collect.Lists;
 
 import java.sql.ResultSet;
@@ -41,7 +42,7 @@ public final class JoinedRows implements Rows {
      * @param columns  columns number
      * @param rs       {@link ResultSet}
      * @param metaData {@link ResultSetMetaData}
-     * @param tables   {@link com.github.strogiyotec.lightbox.jdbc.value.join.JoinTables}
+     * @param tables   {@link JoinTables}
      * @return singleRow with all fields
      * @throws SQLException if failed
      */
